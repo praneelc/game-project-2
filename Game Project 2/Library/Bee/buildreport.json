@@ -1,0 +1,20 @@
+{
+"instructions_readme": "1) Open Chrome, 2) go to chrome://tracing, 3) click Load, 4) navigate to this file.",
+
+"traceEvents":[
+{ "pid": "Unity", "ph":"M", "name": "process_name", "args": {"name": "Unity"} },
+{ "pid": "Unity", "ph":"M", "name": "process_sort_index", "args": {"sort_index": -100} },
+{ "pid": "Unity", "tid": 1, "ph":"M", "name": "thread_name", "args": {"name": ""} },
+{ "pid": "Unity", "tid": 1,"ts": 1.68133031109112E+15,"dur": 225657, "ph":"X", "name": "Build player"},
+{ "pid": "Unity", "tid": 1,"ts": 1.68133031112362E+15,"dur": 27542, "ph":"X", "name": "Preprocess Player"},
+{ "pid": "Unity", "tid": 1,"ts": 1.68133031126903E+15,"dur": 4292, "ph":"X", "name": "Prepare For Build"},
+{}
+
+],
+"meta_datetime": "04/12/2023 16:11:51",
+"meta_command_line": "\"C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.22f1\\Editor\\Unity.exe\" -createproject \"C:\\Users\\CG Admin\\Documents\\GitHub\\game-project-2\\Game Project 2\" -cloneFromTemplate \"C:\\Users\\CG Admin\\AppData\\Roaming\\UnityHub\\Templates\\com.unity.template.vr-3.1.0.tgz\" -cloudOrganization  -cloudEnvironment production -useHub -hubIPC -hubSessionId 945401b0-d983-11ed-b228-b15a004f1eeb",
+"meta_command_line_args": "C:\\Program Files\\Unity\\Hub\\Editor\\2021.3.22f1\\Editor\\Unity.exe -createproject C:\\Users\\CG Admin\\Documents\\GitHub\\game-project-2\\Game Project 2 -cloneFromTemplate C:\\Users\\CG Admin\\AppData\\Roaming\\UnityHub\\Templates\\com.unity.template.vr-3.1.0.tgz -cloudOrganization  -cloudEnvironment production -useHub -hubIPC -hubSessionId 945401b0-d983-11ed-b228-b15a004f1eeb",
+"meta_user_name": "CG Admin",
+"meta_os_version": "Microsoft Windows NT 10.0.19045.0",
+"meta_cpu_count": "16"
+}
