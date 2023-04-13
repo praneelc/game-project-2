@@ -11,17 +11,32 @@ public class ExplosiveTreat : Treat
     private float blastRadius;
     [SerializeField]
     private GameObject explosionVolume;
+    [SerializeField]
+    private float explosionDamage;
 
     private void HandleTreatCollision(SweetTreat treat)
     {
         Debug.Log("Explosive collided with treat");
+
+        if (treat == null)
+        {
+            Debug.LogError("Missing sweet treat script on object!");
+        }
+
         Explode();
     }
 
     private void HandlePlayerCollision(PlayerManager player)
     {
         Debug.Log("Explosive collided with player: taking " + Damage + " damage");
+
+        if (player == null)
+        {
+            Debug.LogError("Missing player manager script on object!");
+        }
+
         player.TakeDamage(Damage);
+        player.ScorePoints(Points); // lose points after getting hit by explosion
         Explode();
     }
 
@@ -34,19 +49,23 @@ public class ExplosiveTreat : Treat
         if (collider.CompareTag("Player")) {
             PlayerManager player = collider.gameObject.GetComponent<PlayerManager>();
             HandlePlayerCollision(player);
+        } else if (collider.CompareTag("PlayerHand"))
+        {
+            // TODO: get player and also call handle player collision
         }
         else if (collider.CompareTag("SweetTreat"))
         {
             SweetTreat treat = collider.gameObject.GetComponent<SweetTreat>();
             HandleTreatCollision(treat);
-            Destroy(collider.gameObject);
         }
     }
 
     public void Explode()
     {
         Debug.Log("Spawning explosion");
-        Instantiate(explosionVolume, transform.position, Quaternion.identity);
+        GameObject explosion = Instantiate(explosionVolume, transform.position, Quaternion.identity);
+        ExplosionVolume ev = explosion.GetComponent<ExplosionVolume>();
+        ev.Initialize(maxExplosiveForce, blastRadius, explosionDamage);
         Destroy(gameObject);
     }
 

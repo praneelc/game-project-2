@@ -6,16 +6,24 @@ public class PlayerManager : MonoBehaviour
 {
     public int Score { get; private set; }
 
-    public readonly float MAX_HEALTH;
+    public readonly float MAX_HEALTH = 10.0f;
     public float health { get; private set; }
     private float shield;
     private float shieldRemainingTime;
 
-    public readonly float MAX_FULLNESS;
+    public readonly float MAX_FULLNESS = 10.0f;
     public float fullness { get; private set; }
-    private float starveThreshold;
+    private float starveThreshold = 0.1f;
 
     public float FullnessDepletionRate { get; private set; }  = .5f;
+
+    private void Start()
+    {
+        health = MAX_HEALTH;
+        fullness = MAX_FULLNESS;
+        shield = 0;
+        shieldRemainingTime = 0;
+    }
 
     #region General
 
@@ -32,6 +40,7 @@ public class PlayerManager : MonoBehaviour
     {
         Score += pointsToAdd;
         Score = Mathf.Max(0, Score);
+        Debug.Log("Player scored " + pointsToAdd + " points! Current score is " + Score);
         return Score;
     }
 
@@ -42,12 +51,14 @@ public class PlayerManager : MonoBehaviour
     public float TakeDamage(float damage)
     {
         health = Mathf.Clamp(health - damage, 0, MAX_HEALTH);
+        Debug.Log("Player took " + damage + " damage! Current health is " + health);
         return health;
     }
 
     public float RestoreHealth(float healthRestored)
     {
         health = Mathf.Clamp(health + healthRestored, 0, MAX_HEALTH);
+        Debug.Log("Player health increased by " + healthRestored + "! Current health is " + health);
         return health;
     }
 
@@ -60,6 +71,7 @@ public class PlayerManager : MonoBehaviour
     public float RestoreFullness(float fullnessRestored)
     {
         fullness = Mathf.Clamp(fullness + fullnessRestored, 0, MAX_FULLNESS);
+        Debug.Log("Player fullness increased by " + fullnessRestored + "! Current fullness is " + fullness);
         return fullness;
     }
 

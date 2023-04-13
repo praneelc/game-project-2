@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class PlayerHandController : MonoBehaviour
 {
-   
+    public bool isCatching;
 }
