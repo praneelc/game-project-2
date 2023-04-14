@@ -8,13 +8,49 @@ public class Target : MonoBehaviour
     private float maxAge;
     private float age;
 
-    public void TickMovement()
-    {
+    private Rigidbody rb;
 
+    [SerializeField]
+    private float yBobScale = 1;
+    [SerializeField]
+    private float yBobSharpness = 1f;
+
+    private void Start()
+    {
+        this.rb = GetComponent<Rigidbody>();
     }
 
-    public virtual void OnHit()
+    private void OnCollisionEnter(Collision collision)
     {
+        this.OnHit(collision);
+    }
 
+    public void TickMovement(float delta)
+    {
+        this.rb.velocity = yBobScale * Vector3.up * Mathf.Sin(Time.time* yBobSharpness);
+
+        this.age += delta;
+        if (this.age >= this.maxAge)
+        {
+            //Destroy(this.gameObject);
+        }
+    }
+
+    public virtual void OnHit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("SweetTreat"))
+        {
+            SweetTreat sweetTreat = collision.gameObject.GetComponent<SweetTreat>();
+
+            if (sweetTreat.wasThrown)
+            {
+                sweetTreat.owner.ScorePoints(this.Points);
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        TickMovement(Time.fixedDeltaTime);
     }
 }

@@ -55,6 +55,14 @@ public class PlayerManager : MonoBehaviour
         return health;
     }
 
+    public float AddShield(float shield, float time)
+    {
+        this.shield += shield;
+        this.shieldRemainingTime += time;
+
+        return shield;
+    }
+
     public float RestoreHealth(float healthRestored)
     {
         health = Mathf.Clamp(health + healthRestored, 0, MAX_HEALTH);
