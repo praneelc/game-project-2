@@ -25,24 +25,18 @@ public class SweetTreat : Treat
         // TODO: make treat bounce off player?
     }
 
-    private void HandlePlayerHandCollision(PlayerHandController hand)
+    public void FreezeTreat()
     {
-        Debug.Log("Player hand collided with sweet treat! Is catching: " + hand.isCatching);
-        if (hand == null)
-        {
-            Debug.LogError("Missing hand controller script on object!");
-        }
+        base.rb.isKinematic = true;
+        base.rb.velocity = Vector3.zero;
+        base.rb.angularVelocity = Vector3.zero;
+        // TODO: add gravity in unity
+    }
 
-        if (hand.isCatching)
-        {
-            owner = Object.FindObjectOfType<PlayerManager>();
-            owner.ScorePoints(Points);
-            owner.RestoreFullness(healthRestored);
-            owner.RestoreHealth(fullnessRestored);
-
-            transform.SetParent(hand.transform);
-            // TODO: set local position to place object in palm of hand
-        }
+    public void UnfreezeTreat()
+    {
+        rb.isKinematic = false;
+        // TODO rb.useGravity = true;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -52,20 +46,12 @@ public class SweetTreat : Treat
         if (collider.CompareTag("PlayerHand"))
         {
             PlayerHandController hand = collider.gameObject.GetComponent<PlayerHandController>();
-            HandlePlayerHandCollision(hand);
         }
         else if (collider.CompareTag("Player"))
         {
             PlayerManager player = collider.gameObject.GetComponent<PlayerManager>();
             HandlePlayerCollision(player);
         }
-        Destroy(this.gameObject);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
     }
 
     // Update is called once per frame

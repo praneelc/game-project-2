@@ -1,0 +1,54 @@
+{
+    "name": "ViveInputActions",
+    "maps": [
+        {
+            "name": "Player",
+            "id": "51ba7164-98b2-472b-b173-5573cdeb0a68",
+            "actions": [
+                {
+                    "name": "LeftHandClose",
+                    "type": "Button",
+                    "id": "d82ce44c-c012-4011-a49e-84ae12c13c20",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "RightHandClose",
+                    "type": "Button",
+                    "id": "20111207-1267-4fc0-9e38-b3e6b0e6c701",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f59d3886-56ee-4690-91d0-310b5b56b63f",
+                    "path": "<XRInputV1::HTC::HTCViveControllerOpenXR>{LeftHand}/triggerpressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LeftHandClose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e337f3e2-a13c-47ce-93b3-fabaa7bb2547",
+                    "path": "<XRInputV1::HTC::HTCViveControllerOpenXR>{RightHand}/triggerpressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "RightHandClose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

@@ -5,8 +5,9 @@ using UnityEngine;
 public abstract class Treat : MonoBehaviour
 {
     public int Points;
-    public Rigidbody rb;
+    protected Rigidbody rb;
     public PlayerManager owner;
+
 
     void TickMovement(float deltaTime)
     {
