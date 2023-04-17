@@ -252,6 +252,10 @@ MonoBehaviour:
       m_Groups: 
       m_Action: RightHandClose
       m_Flags: 0
+  angleSpawnRange: 60
+  spawnDist: 10
+  sweetTreatPrefabs: []
+  explosiveTreatPrefabs: []
 --- !u!4 &385577578
 Transform:
   m_ObjectHideFlags: 0
@@ -1154,8 +1158,8 @@ GameObject:
   - component: {fileID: 1193880536}
   - component: {fileID: 1193880540}
   m_Layer: 0
-  m_Name: PlayerCube
-  m_TagString: Untagged
+  m_Name: Player
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
