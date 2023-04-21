@@ -5,8 +5,8 @@ using UnityEngine;
 public class Target : MonoBehaviour
 {
     public int Points;
-    private float maxAge;
-    private float age;
+    private float maxAge = 5f;
+    private float age = 0f;
 
     private Rigidbody rb;
 
@@ -18,6 +18,12 @@ public class Target : MonoBehaviour
     private void Start()
     {
         this.rb = GetComponent<Rigidbody>();
+    }
+
+    public void Initialize(float maxAge)
+    {
+        this.rb = GetComponent<Rigidbody>();
+        this.maxAge = maxAge;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -32,7 +38,7 @@ public class Target : MonoBehaviour
         this.age += delta;
         if (this.age >= this.maxAge)
         {
-            //Destroy(this.gameObject);
+            Destroy(this.gameObject);
         }
     }
 
@@ -45,6 +51,7 @@ public class Target : MonoBehaviour
             if (sweetTreat.wasThrown)
             {
                 sweetTreat.owner.ScorePoints(this.Points);
+                // GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().TargetDestroyed();
             }
         }
     }

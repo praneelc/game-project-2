@@ -33,12 +33,23 @@ public class PlayerHandController : MonoBehaviour
         handOpen = true;
 
         // TODO: Release held object
-        this.throwFlag = true;
+        if (isHolding)
+        {
+            this.throwFlag = true;
+        }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        catchableObjects.Add(other.gameObject);
+        if (other.gameObject.CompareTag("SweetTreat"))
+        {
+            catchableObjects.Add(other.gameObject);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        catchableObjects.Remove(other.gameObject);
     }
 
     private GameObject NearestCatchable()
@@ -48,12 +59,19 @@ public class PlayerHandController : MonoBehaviour
         float minDistance = float.MaxValue;
 
         foreach (GameObject obj in catchableObjects){
+
+
             float dist = Vector3.Distance(obj.transform.position, this.transform.position);
 
             if (dist < minDistance) {
                 caught = obj;
                 minDistance = dist;
             }
+        }
+        
+        if (caught == null)
+        {
+            return null;
         }
 
         switch (caught.tag)
@@ -75,6 +93,7 @@ public class PlayerHandController : MonoBehaviour
     {
         if (throwFlag)
         {
+            // Check sweet or explosive
             heldObject.GetComponent<SweetTreat>().UnfreezeTreat();
             heldObject.GetComponent<Rigidbody>().AddForce((heldObject.transform.position - heldObjectLastPos) / Time.deltaTime * throwForce, ForceMode.Impulse);
             heldObject.transform.parent = null;

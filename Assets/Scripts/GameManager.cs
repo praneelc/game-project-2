@@ -17,13 +17,15 @@ public class GameManager : MonoBehaviour
     private float powerupInterval;
     [SerializeField]
     private float targetInterval;
+    public float timeToNextTarget { get; private set; } = 0f;
+
+    // TODO: make sure this is false sometime
+    private bool targetSpawningEnabled = true;
 
     public InputActionMap inputActions;
     private PlayerHandController leftHand;
     private PlayerHandController rightHand;
 
-    [SerializeField]
-    public GameObject sweetTreat;
 
     private PlayerManager player;
     private void Awake()
@@ -45,6 +47,7 @@ public class GameManager : MonoBehaviour
         inputActions["RightHandClose"].canceled += _ => rightHand.OpenHand();
 
         InvokeRepeating("SpawnTreat", 0, treatInterval);
+        InvokeRepeating("SpawnTarget", 0, targetInterval);
     }
 
     private void OnEnable()
@@ -95,6 +98,8 @@ public class GameManager : MonoBehaviour
     private List<GameObject> sweetTreatPrefabs;
     [SerializeField]
     private List<GameObject> explosiveTreatPrefabs;
+    [SerializeField]
+    private GameObject targetPrefab;
 
     public void SpawnTreat()
     {
@@ -149,7 +154,27 @@ public class GameManager : MonoBehaviour
 
     public void SpawnTarget()
     {
+        // TODO: Target Age
 
+        float heightOffset = Random.Range(1f, 3f);
+
+        float randAngle = Random.Range(-angleSpawnRange, angleSpawnRange);
+        Vector3 spawnDir = Quaternion.Euler(0, randAngle, 0) * player.transform.forward;
+
+        // Select a point horizon-distance away along that line
+        Vector3 spawnPoint = player.transform.position + Random.Range(2f, 4f) * spawnDir.normalized + Vector3.up * (player.transform.position.y + heightOffset);
+        Quaternion rot = Quaternion.LookRotation(Vector3.up * 1 + player.transform.position - spawnPoint, Vector3.up);
+        
+
+        Target target = Instantiate(targetPrefab, spawnPoint, rot).GetComponent<Target>();
+        target.Initialize(5f);
+
+        
+    }
+
+    public void TargetDestroyed()
+    {
+        timeToNextTarget = 0f;
     }
 
     public void SpawnPowerup()
