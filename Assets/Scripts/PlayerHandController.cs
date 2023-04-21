@@ -16,7 +16,7 @@ public class PlayerHandController : MonoBehaviour
 
     private Vector3 heldObjectLastPos;
     private bool throwFlag = false;
-    private float throwForce = 2f;
+    private float throwForce = 1f;
 
     public void CloseHand()
     {
@@ -71,12 +71,12 @@ public class PlayerHandController : MonoBehaviour
         return caught;
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         if (throwFlag)
         {
             heldObject.GetComponent<SweetTreat>().UnfreezeTreat();
-            heldObject.GetComponent<Rigidbody>().AddForce((heldObject.transform.position - heldObjectLastPos) / Time.fixedDeltaTime * throwForce, ForceMode.Impulse);
+            heldObject.GetComponent<Rigidbody>().AddForce((heldObject.transform.position - heldObjectLastPos) / Time.deltaTime * throwForce, ForceMode.Impulse);
             heldObject.transform.parent = null;
 
             heldObject = null;

@@ -5,12 +5,11 @@ using UnityEngine;
 public class ExplosionVolume : MonoBehaviour
 {
     public float Damage;
-    [SerializeField]
     private float maxExplosiveForce;
-    [SerializeField]
     private float blastRadius;
+
     [SerializeField]
-    private float expansionPerSecond;
+    private float expansionFactor;
 
     private float uniformScale = 0f;
 
@@ -23,8 +22,13 @@ public class ExplosionVolume : MonoBehaviour
     
     private void TickExplosion(float delta)
     {
-        uniformScale += expansionPerSecond * delta;
+        uniformScale += delta;
         transform.localScale = Vector3.one * uniformScale;
+
+        if (transform.localScale.x >= blastRadius)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     private void OnTriggerEnter(Collider collider)

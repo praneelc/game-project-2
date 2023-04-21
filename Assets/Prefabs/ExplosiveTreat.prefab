@@ -112,12 +112,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Points: -1
-  rb: {fileID: 0}
   owner: {fileID: 0}
   Damage: 10
   maxExplosiveForce: 0
-  blastRadius: 0
-  explosionVolume: {fileID: 0}
+  blastRadius: 0.5
+  explosionVolume: {fileID: 3455842534788251652, guid: ff8e65bc228750647a5adbce0ac35035,
+    type: 3}
+  explosionDamage: 0
 --- !u!54 &2429269525330501200
 Rigidbody:
   m_ObjectHideFlags: 0
