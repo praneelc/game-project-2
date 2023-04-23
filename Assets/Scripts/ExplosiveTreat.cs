@@ -13,6 +13,10 @@ public class ExplosiveTreat : Treat
     private GameObject explosionVolume;
     [SerializeField]
     private float explosionDamage;
+    public PlayerHandController secondaryOwner;
+
+    private float timeInHand = -1;
+    private readonly float TIME_TO_EXPLODE = 0.1f;
 
     private void HandleTreatCollision(SweetTreat treat)
     {
@@ -43,20 +47,36 @@ public class ExplosiveTreat : Treat
     private void OnCollisionEnter(Collision collision)
     {
         Collider collider = collision.collider;
-        // TODO: add "Player" tag to player body
-        // Also add "PlayerHand" tag to player left/right hand controllers and check those
-        if (collider.CompareTag("Player")) {
-            PlayerManager player = collider.gameObject.GetComponent<PlayerManager>();
+        if (collider.CompareTag("PlayerBody") || collider.CompareTag("PlayerHead")) {
+            PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
             HandlePlayerCollision(player);
-        } else if (collider.CompareTag("PlayerHand"))
-        {
-            // TODO: get player and also call handle player collision
         }
         else if (collider.CompareTag("SweetTreat"))
         {
             SweetTreat treat = collider.gameObject.GetComponent<SweetTreat>();
             HandleTreatCollision(treat);
         }
+    }
+
+    public void StartCountdown()
+    {
+        timeInHand = 0.0f;
+    }
+
+    public void Diffuse()
+    {
+        if (owner == null || secondaryOwner == null)
+        {
+            Debug.LogError("Should not diffuse explosive treat! Owner is " + owner + " and secondary owner is " + secondaryOwner);
+            return;
+        }
+        this.owner.FreeHand();
+        this.secondaryOwner.FreeHand();
+        owner.removeTreat(this);
+        secondaryOwner.removeTreat(this);
+        // TODO: require that hands hold explosive for a while until it disappears
+        Destroy(gameObject);
+        Debug.Log("Diffused explosive treat with 2 hands");
     }
 
     public void Explode()
@@ -77,6 +97,20 @@ public class ExplosiveTreat : Treat
     // Update is called once per frame
     void Update()
     {
+        if (timeInHand >= 0)
+        {
+            timeInHand += Time.deltaTime;
+        }
 
+        if (timeInHand > TIME_TO_EXPLODE)
+        {
+            if (secondaryOwner != null)
+            {
+                Debug.LogWarning("Treat should've been diffused if there's a second owner");
+            }
+            owner.FreeHand();
+            owner.removeTreat(this);
+            Explode();
+        }
     }
 }

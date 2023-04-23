@@ -15,6 +15,7 @@ public class PlayerHeadController : MonoBehaviour
                 Debug.Log("owner not null");
                 // Free up the hand holding the treat, then let the treat be eaten
                 treat.owner.FreeHand();
+                treat.owner.removeTreat(treat);
                 PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
                 player.EatTreat(treat);
             }

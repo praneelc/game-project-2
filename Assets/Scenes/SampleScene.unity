@@ -215,7 +215,7 @@ Transform:
   m_GameObject: {fileID: 168084910}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1725982594}
@@ -343,8 +343,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8698a192a3c7a44a0b65b307f8a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treatInterval: 0.35
-  explosiveChance: 0.1
+  treatInterval: 0.5
+  explosiveChance: 0.5
   powerupInterval: 5
   targetInterval: 3
   inputActions:
@@ -1523,7 +1523,7 @@ Transform:
   m_GameObject: {fileID: 1944149792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1.026, z: 0}
-  m_LocalScale: {x: 0.5, y: 1.3349625, z: 0.5}
+  m_LocalScale: {x: 0.25, y: 1.3349625, z: 0.25}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1725982594}

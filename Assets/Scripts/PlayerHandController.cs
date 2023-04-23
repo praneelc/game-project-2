@@ -47,10 +47,22 @@ public class PlayerHandController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject == heldObject)
+        {
+            return;
+        }
+
         if (other.gameObject.CompareTag("SweetTreat"))
         {
-            SweetTreat treat = other.gameObject.GetComponent<SweetTreat>();
+            Treat treat = other.gameObject.GetComponent<Treat>();
             if (treat.owner == null)
+            {
+                catchableObjects.Add(other.gameObject);
+            }
+        } else if (other.gameObject.CompareTag("ExplosiveTreat"))
+        {
+            ExplosiveTreat explosiveTreat = other.gameObject.GetComponent<ExplosiveTreat>();
+            if (explosiveTreat.owner == null || explosiveTreat.secondaryOwner == null)
             {
                 catchableObjects.Add(other.gameObject);
             }
@@ -62,15 +74,32 @@ public class PlayerHandController : MonoBehaviour
         catchableObjects.Remove(other.gameObject);
     }
 
+    private void CatchTreat(GameObject caught)
+    {
+        caught.transform.SetParent(this.transform);
+        // TODO: set local position of treat to be in your hand
+        caught.transform.localPosition = holdPosition;
+        Treat caughtTreat = caught.GetComponent<Treat>();
+        caughtTreat.owner = this;
+        caughtTreat.FreezeTreat();
+    }
+
+    public void removeTreat(Treat treat)
+    {
+        catchableObjects.Remove(treat.gameObject);
+    }
+
     private GameObject NearestCatchable()
     {
         GameObject caught = null;
-
         float minDistance = float.MaxValue;
 
         foreach (GameObject obj in catchableObjects){
-
-
+            if (obj == null)
+            {
+                Debug.LogWarning("Should not have null object in catchable objects! Length: " + catchableObjects.Count);
+                continue;
+            }
             float dist = Vector3.Distance(obj.transform.position, this.transform.position);
 
             if (dist < minDistance) {
@@ -87,12 +116,21 @@ public class PlayerHandController : MonoBehaviour
         switch (caught.tag)
         {
             case "SweetTreat":
-                caught.transform.SetParent(this.transform);
-                // TODO: set local position of treat to be in your hand
-                caught.transform.localPosition = holdPosition;
-                SweetTreat caughtSweetTreat = caught.GetComponent<SweetTreat>();
-                caughtSweetTreat.owner = this;
-                caughtSweetTreat.FreezeTreat();
+                CatchTreat(caught);
+                break;
+            case "ExplosiveTreat":
+                {
+                    ExplosiveTreat explosiveTreat = caught.GetComponent<ExplosiveTreat>();
+                    if (explosiveTreat.owner == null) // this is the first hand to catch the explosive treat
+                    {
+                        CatchTreat(caught);
+                        explosiveTreat.StartCountdown();
+                    } else // this is the second hand to diffuse the explosive treat
+                    {
+                        explosiveTreat.secondaryOwner = this;
+                        explosiveTreat.Diffuse();
+                    }
+                }
                 break;
             default:
                 break;
