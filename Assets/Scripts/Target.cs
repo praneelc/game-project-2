@@ -50,7 +50,8 @@ public class Target : MonoBehaviour
 
             if (sweetTreat.wasThrown)
             {
-                sweetTreat.owner.ScorePoints(this.Points);
+                PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+                player.ScorePoints(this.Points);
                 // GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().TargetDestroyed();
             }
         }

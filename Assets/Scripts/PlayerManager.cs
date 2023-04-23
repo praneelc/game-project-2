@@ -44,6 +44,13 @@ public class PlayerManager : MonoBehaviour
         return Score;
     }
 
+    public void EatTreat(SweetTreat treat)
+    {
+        ScorePoints(treat.Points);
+        Destroy(treat.gameObject);
+        Debug.Log("Sweet treat was eaten");
+    }
+
     #endregion
 
     #region Health

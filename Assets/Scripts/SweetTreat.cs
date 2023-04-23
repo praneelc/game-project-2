@@ -15,16 +15,6 @@ public class SweetTreat : Treat
 
     }
 
-    private void HandlePlayerCollision(PlayerManager player)
-    {
-        Debug.Log("Player collided with sweet treat!");
-        if (player == null)
-        {
-            Debug.LogError("Missing player manager script on object!");
-        }
-        // TODO: make treat bounce off player?
-    }
-
     public void FreezeTreat()
     {
         base.rb.isKinematic = true;
@@ -47,10 +37,18 @@ public class SweetTreat : Treat
         {
             PlayerHandController hand = collider.gameObject.GetComponent<PlayerHandController>();
         }
-        else if (collider.CompareTag("Player"))
+        else if (collider.CompareTag("PlayerHead"))
         {
-            PlayerManager player = collider.gameObject.GetComponent<PlayerManager>();
-            HandlePlayerCollision(player);
+            if (owner != null)
+            {
+                // Free up the hand holding the treat, then let the treat be eaten
+                bool canEat = owner.FreeHand();
+                if (canEat)
+                {
+                    PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+                    player.EatTreat(this);
+                }
+            }
         }
     }
 

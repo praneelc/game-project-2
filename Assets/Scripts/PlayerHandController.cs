@@ -11,7 +11,6 @@ public class PlayerHandController : MonoBehaviour
     private List<GameObject> catchableObjects = new();
 
     private readonly Vector3 holdPosition = new Vector3(0, 0, .08f);
-    private bool isHolding { get => heldObject != null; }
     private GameObject heldObject;
 
     private Vector3 heldObjectLastPos;
@@ -24,7 +23,8 @@ public class PlayerHandController : MonoBehaviour
         handOpen = false;
 
         heldObject = NearestCatchable();
-        Debug.Log("Caught Something?: " + isHolding);
+        catchableObjects.Remove(heldObject);
+        Debug.Log("Caught Something?: " + heldObject != null);
     }
 
     public void OpenHand()
@@ -33,10 +33,21 @@ public class PlayerHandController : MonoBehaviour
         handOpen = true;
 
         // TODO: Release held object
-        if (isHolding)
+        if (heldObject != null)
         {
             this.throwFlag = true;
         }
+    }
+
+    public bool FreeHand()
+    {
+        if (throwFlag)
+        {
+            heldObject = null;
+            throwFlag = false;
+            return true;
+        }
+        return false; // hand was not freed
     }
 
     private void OnTriggerEnter(Collider other)
@@ -103,7 +114,7 @@ public class PlayerHandController : MonoBehaviour
         }
 
 
-        if (isHolding)
+        if (heldObject != null)
         {
             heldObjectLastPos = heldObject.transform.position;
         }

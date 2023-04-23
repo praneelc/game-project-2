@@ -6,7 +6,7 @@ public abstract class Treat : MonoBehaviour
 {
     public int Points;
     protected Rigidbody rb;
-    public PlayerManager owner;
+    public PlayerHandController owner;
 
 
     public void Initialize(Vector3 vel)
