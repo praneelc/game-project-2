@@ -31,24 +31,10 @@ public class SweetTreat : Treat
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision with sweet treat detected");
         Collider collider = collision.collider;
         if (collider.CompareTag("PlayerHand"))
         {
             PlayerHandController hand = collider.gameObject.GetComponent<PlayerHandController>();
-        }
-        else if (collider.CompareTag("PlayerHead"))
-        {
-            if (owner != null)
-            {
-                // Free up the hand holding the treat, then let the treat be eaten
-                bool canEat = owner.FreeHand();
-                if (canEat)
-                {
-                    PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
-                    player.EatTreat(this);
-                }
-            }
         }
     }
 

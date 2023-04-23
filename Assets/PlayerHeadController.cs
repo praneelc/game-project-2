@@ -4,15 +4,20 @@ using UnityEngine;
 
 public class PlayerHeadController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnTriggerEnter(Collider other)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (other.gameObject.CompareTag("SweetTreat"))
+        {
+            Debug.Log("collided with player head");
+            SweetTreat treat = other.GetComponent<SweetTreat>();
+            if (treat.owner != null)
+            {
+                Debug.Log("owner not null");
+                // Free up the hand holding the treat, then let the treat be eaten
+                treat.owner.FreeHand();
+                PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+                player.EatTreat(treat);
+            }
+        }
     }
 }

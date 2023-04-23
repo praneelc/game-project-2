@@ -39,22 +39,21 @@ public class PlayerHandController : MonoBehaviour
         }
     }
 
-    public bool FreeHand()
+    public void FreeHand()
     {
-        if (throwFlag)
-        {
-            heldObject = null;
-            throwFlag = false;
-            return true;
-        }
-        return false; // hand was not freed
+        throwFlag = false;
+        heldObject = null;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("SweetTreat"))
         {
-            catchableObjects.Add(other.gameObject);
+            SweetTreat treat = other.gameObject.GetComponent<SweetTreat>();
+            if (treat.owner == null)
+            {
+                catchableObjects.Add(other.gameObject);
+            }
         }
     }
 
@@ -91,7 +90,9 @@ public class PlayerHandController : MonoBehaviour
                 caught.transform.SetParent(this.transform);
                 // TODO: set local position of treat to be in your hand
                 caught.transform.localPosition = holdPosition;
-                caught.GetComponent<SweetTreat>().FreezeTreat();
+                SweetTreat caughtSweetTreat = caught.GetComponent<SweetTreat>();
+                caughtSweetTreat.owner = this;
+                caughtSweetTreat.FreezeTreat();
                 break;
             default:
                 break;

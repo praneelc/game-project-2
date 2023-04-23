@@ -42,7 +42,6 @@ public class ExplosiveTreat : Treat
 
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Collision with explosive detected");
         Collider collider = collision.collider;
         // TODO: add "Player" tag to player body
         // Also add "PlayerHand" tag to player left/right hand controllers and check those
