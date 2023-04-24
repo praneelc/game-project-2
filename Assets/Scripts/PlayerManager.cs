@@ -6,16 +6,16 @@ public class PlayerManager : MonoBehaviour
 {
     public int Score { get; private set; }
 
-    public readonly float MAX_HEALTH = 10.0f;
+    public readonly float MAX_HEALTH = 1000.0f;
     public float health { get; private set; }
-    private float shield;
+    public float shield { get; private set; }
     private float shieldRemainingTime;
 
-    public readonly float MAX_FULLNESS = 10.0f;
+    public readonly float MAX_FULLNESS = 1000.0f;
     public float fullness { get; private set; }
     private float starveThreshold = 0.1f;
 
-    public float FullnessDepletionRate { get; private set; }  = .5f;
+    public float FullnessDepletionRate { get; private set; }  = .1f;
 
     private void Start()
     {
@@ -23,13 +23,24 @@ public class PlayerManager : MonoBehaviour
         fullness = MAX_FULLNESS;
         shield = 0;
         shieldRemainingTime = 0;
+
+        uIManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerUIManager>();
+    }
+
+    private void Update()
+    {
+        TickPlayerAttributes(Time.deltaTime);
+        uIManager.UpdateHealth();
+        uIManager.UpdateFullness();
+        uIManager.UpdateScore();
+        uIManager.UpdateShield();
     }
 
     #region General
 
     public void TickPlayerAttributes(float deltaTime)
     {
-        TickFullness();
+        TickFullness(deltaTime);
         if (fullness <= starveThreshold)
         {
             TakeDamage(StarvingDamage());
@@ -89,9 +100,11 @@ public class PlayerManager : MonoBehaviour
         return health;
     }
 
-    public float TickFullness()
+    public float TickFullness(float delta)
     {
-        fullness = Mathf.Clamp(fullness - FullnessDepletionRate, 0, MAX_FULLNESS);
+        float temp = fullness;
+        fullness = Mathf.Clamp(fullness - FullnessDepletionRate * delta, 0, MAX_FULLNESS);
+        Debug.Log("Depletion" + (temp - fullness));
         return fullness;
     }
 
@@ -109,4 +122,15 @@ public class PlayerManager : MonoBehaviour
     }
 
     #endregion
+
+    #region UI
+
+    [SerializeField]
+    private PlayerUIManager uIManager;
+
+
+
+
+    #endregion
+
 }

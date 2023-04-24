@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 9190948176476988195}
   - component: {fileID: 422972241356911794}
   - component: {fileID: -464993349152364209}
+  - component: {fileID: -2550798186914443645}
   m_Layer: 0
   m_Name: ExplosionVolume
   m_TagString: Untagged
@@ -61,7 +62,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Damage: 0
-  expansionFactor: 0.00001
+  expansionFactor: 3.4028235e+38
 --- !u!33 &422972241356911794
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -112,3 +113,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!54 &-2550798186914443645
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3455842534788251652}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 2

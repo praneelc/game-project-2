@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
 
         InvokeRepeating("SpawnTreat", 0, treatInterval);
         InvokeRepeating("SpawnTarget", 0, targetInterval);
+        InvokeRepeating("SpawnPowerup", 0, powerupInterval);
     }
 
     private void OnEnable()
@@ -100,6 +101,8 @@ public class GameManager : MonoBehaviour
     private List<GameObject> explosiveTreatPrefabs;
     [SerializeField]
     private GameObject targetPrefab;
+    [SerializeField]
+    private List<GameObject> powerupPrefabs;
 
     public void SpawnTreat()
     {
@@ -179,7 +182,20 @@ public class GameManager : MonoBehaviour
 
     public void SpawnPowerup()
     {
+        // TODO: Powerup Age
 
+        float heightOffset = Random.Range(1f, 3f);
+
+        float randAngle = Random.Range(-angleSpawnRange, angleSpawnRange);
+        Vector3 spawnDir = Quaternion.Euler(0, randAngle, 0) * player.transform.forward;
+
+        // Select a point horizon-distance away along that line
+        Vector3 spawnPoint = player.transform.position + Random.Range(2f, 4f) * spawnDir.normalized + Vector3.up * (player.transform.position.y + heightOffset);
+        Quaternion rot = Quaternion.LookRotation(Vector3.up * 1 + player.transform.position - spawnPoint, Vector3.up);
+
+        int index = Random.Range(0, powerupPrefabs.Count);
+        Target powerup = Instantiate(powerupPrefabs[index], spawnPoint, Quaternion.identity).GetComponent<Target>();
+        powerup.Initialize(5f);
     }
 
     #endregion

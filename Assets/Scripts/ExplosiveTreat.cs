@@ -20,8 +20,6 @@ public class ExplosiveTreat : Treat
 
     private void HandleTreatCollision(SweetTreat treat)
     {
-        Debug.Log("Explosive collided with treat");
-
         if (treat == null)
         {
             Debug.LogError("Missing sweet treat script on object!");
@@ -32,7 +30,7 @@ public class ExplosiveTreat : Treat
 
     private void HandlePlayerCollision(PlayerManager player)
     {
-        Debug.Log("Explosive collided with player: taking " + Damage + " damage");
+        Debug.Log("ExplosiveTreat collided with player: taking " + Damage + " damage");
 
         if (player == null)
         {

@@ -33,14 +33,25 @@ public class ExplosionVolume : MonoBehaviour
 
     private void OnTriggerEnter(Collider collider)
     {
-        PlayerManager playerManager;
-        collider.TryGetComponent<PlayerManager>(out playerManager);
-
-        if (playerManager != null)
+        // if hit player
+        if (collider.gameObject.CompareTag("PlayerHead") || collider.gameObject.CompareTag("PlayerBody")) {
+            PlayerManager playerManager;
+            collider.transform.parent.TryGetComponent<PlayerManager>(out playerManager);
+            if (playerManager != null)
+            {
+                playerManager.TakeDamage(CalculateDamage());
+            }
+        } else if (collider.gameObject.CompareTag("SweetTreat"))
         {
-            playerManager.TakeDamage(Damage);
-        }
+            Rigidbody treat;
+            collider.TryGetComponent<Rigidbody>(out treat);
 
+            if (treat != null)
+            {
+                Vector3 forceDir = (treat.position - this.transform.position).normalized;
+                treat.AddForce(forceDir * CalculateForce(), ForceMode.Impulse);
+            }
+        }
 
     }
 
@@ -53,5 +64,16 @@ public class ExplosionVolume : MonoBehaviour
     void FixedUpdate()
     {
         TickExplosion(Time.fixedDeltaTime);
+    }
+
+    private float CalculateDamage()
+    {
+
+        return Mathf.Clamp(Mathf.Sin((1 - this.uniformScale) * Mathf.PI / 2) * Damage, 0, Damage);
+    }
+
+    private float CalculateForce() {
+
+        return Mathf.Clamp(Mathf.Sin((1 - this.uniformScale) * Mathf.PI / 2) * maxExplosiveForce, 0, maxExplosiveForce);
     }
 }

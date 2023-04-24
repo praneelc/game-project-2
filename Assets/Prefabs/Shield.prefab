@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 2811894127562895414}
   - component: {fileID: 5349771488335340642}
   - component: {fileID: 6237590013362455517}
+  - component: {fileID: -6864936484930951130}
+  - component: {fileID: 1024800935007073071}
   m_Layer: 0
   m_Name: Shield
   m_TagString: Untagged
@@ -41,7 +43,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8718962301444974238}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &5349771488335340642
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -99,3 +101,34 @@ MonoBehaviour:
   Points: 0
   yBobScale: 1
   yBobSharpness: 1
+  shield: 30
+  shieldTime: 10
+--- !u!54 &-6864936484930951130
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8718962301444974238}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 1
+--- !u!65 &1024800935007073071
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8718962301444974238}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
