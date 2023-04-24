@@ -15,6 +15,9 @@ public class PlayerManager : MonoBehaviour
     public float fullness { get; private set; }
     private float starveThreshold = 0.1f;
 
+    public float healthRestoreRate = 15f;
+    public float healthRestoreCost = 15f;
+
     public float FullnessDepletionRate { get; private set; }  = .1f;
 
     private void Start()
@@ -40,10 +43,18 @@ public class PlayerManager : MonoBehaviour
 
     public void TickPlayerAttributes(float deltaTime)
     {
-        TickFullness(deltaTime);
+        
         if (fullness <= starveThreshold)
         {
-            TakeDamage(StarvingDamage());
+            TakeDamage(StarvingDamage() * deltaTime);
+        } else if (health < MAX_HEALTH)
+        {
+            RestoreHealth(healthRestoreRate * deltaTime);
+            RestoreFullness(-healthRestoreCost * deltaTime);
+        }
+        else
+        {
+            TickFullness(deltaTime);
         }
     }
 
@@ -81,7 +92,6 @@ public class PlayerManager : MonoBehaviour
         }
 
         health = Mathf.Clamp(health - damage, 0, MAX_HEALTH);
-        Debug.Log("Player took " + damage + " damage! Current health is " + health);
         return health;
     }
 
@@ -96,7 +106,6 @@ public class PlayerManager : MonoBehaviour
     public float RestoreHealth(float healthRestored)
     {
         health = Mathf.Clamp(health + healthRestored, 0, MAX_HEALTH);
-        Debug.Log("Player health increased by " + healthRestored + "! Current health is " + health);
         return health;
     }
 
@@ -104,7 +113,6 @@ public class PlayerManager : MonoBehaviour
     {
         float temp = fullness;
         fullness = Mathf.Clamp(fullness - FullnessDepletionRate * delta, 0, MAX_FULLNESS);
-        Debug.Log("Depletion" + (temp - fullness));
         return fullness;
     }
 

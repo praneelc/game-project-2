@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.59937483, g: 0.5997509, b: 0.5994883, a: 1}
+  m_IndirectSpecularColor: {r: 0.59937525, g: 0.5997512, b: 0.59948856, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -361,8 +361,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8698a192a3c7a44a0b65b307f8a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  treatInterval: 0.5
-  explosiveChance: 0.5
+  treatInterval: 1
+  explosiveChance: 0.2
   powerupInterval: 6
   targetInterval: 3
   inputActions:
@@ -414,6 +414,7 @@ MonoBehaviour:
     type: 3}
   powerupPrefabs:
   - {fileID: 8718962301444974238, guid: 0ed9410d1ea344113a6db41714243833, type: 3}
+  head: {fileID: 168084910}
 --- !u!4 &385577578
 Transform:
   m_ObjectHideFlags: 0
@@ -1622,6 +1623,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8786f398874fd418e870c4e8dda05f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthRestoreRate: 1
+  healthRestoreCost: 1
   uIManager: {fileID: 0}
 --- !u!1 &1268918704
 GameObject:
@@ -2506,6 +2509,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e8786f398874fd418e870c4e8dda05f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthRestoreRate: 1
+  healthRestoreCost: 1
   uIManager: {fileID: 0}
 --- !u!1 &1728657555
 GameObject:

@@ -16,7 +16,7 @@ public class ExplosiveTreat : Treat
     public PlayerHandController secondaryOwner;
 
     private float timeInHand = -1;
-    private readonly float TIME_TO_EXPLODE = 0.1f;
+    private readonly float TIME_TO_EXPLODE = 0.3f;
 
     private void HandleTreatCollision(SweetTreat treat)
     {
@@ -25,7 +25,7 @@ public class ExplosiveTreat : Treat
             Debug.LogError("Missing sweet treat script on object!");
         }
 
-        Explode();
+        // Explode();
     }
 
     private void HandlePlayerCollision(PlayerManager player)

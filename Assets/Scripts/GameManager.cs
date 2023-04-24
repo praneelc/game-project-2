@@ -92,7 +92,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private float spawnDist = 4f;
     [SerializeField]
-    private float heightOffset = 0f;
+    private float heightOffset = -3f;
 
     [Header("TreatSpawning")]
     [SerializeField]
@@ -104,15 +104,22 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> powerupPrefabs;
 
+    [SerializeField]
+    private GameObject head;
+
     public void SpawnTreat()
     {
+        Vector3 targetPos = head.transform.position;
+        heightOffset = -targetPos.y/2;
+
         // Select a random direction from appropriate range around player
         float randAngle = Random.Range(-angleSpawnRange, angleSpawnRange);
         Vector3 spawnDir = Quaternion.Euler(0, randAngle,0) * player.transform.forward;
 
         // Select a point horizon-distance away along that line
-        Vector3 spawnPoint = player.transform.position + spawnDist * spawnDir.normalized + Vector3.up * (player.transform.position.y + heightOffset);
+        Vector3 spawnPoint = targetPos + spawnDist * spawnDir.normalized + Vector3.up * (targetPos.y + heightOffset);
 
+        Debug.Log(player.gameObject.name);
         // Determine the velocity needed from that point assuming UnityEngine.Physics.gravity to make the treat target the player
         // get velocity direction (z and x components only) from spawn direction
         // pick random angle (angle from ground) for launch, and calculate velocity magnitude accordingly 
@@ -121,7 +128,7 @@ public class GameManager : MonoBehaviour
         float velMag;
         
         radAngle = Random.Range(40, 60) * Mathf.PI / 180;
-        velMag = spawnDist / (Mathf.Cos(radAngle)) * Mathf.Sqrt(Mathf.Abs(UnityEngine.Physics.gravity.y / (2)/(spawnDist * Mathf.Tan(radAngle) + heightOffset)));
+        velMag = spawnDist / (Mathf.Cos(radAngle)) * Mathf.Sqrt(Mathf.Abs(UnityEngine.Physics.gravity.y / (2)/(spawnDist * Mathf.Tan(radAngle) - heightOffset)));
 
         Vector3 spawnVelocity = velMag*Mathf.Cos(radAngle)*(-Vector3.Normalize(spawnDir)+Vector3.up*Mathf.Tan(radAngle));
 
