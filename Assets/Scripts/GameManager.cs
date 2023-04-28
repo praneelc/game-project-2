@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         GameTime += Time.deltaTime;
+        RenderSettings.skybox.SetFloat("_Rotation", Time.time * 0.5f);
     }
 
     #region Game Sequence
