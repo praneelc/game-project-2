@@ -58,6 +58,9 @@ public class ExplosiveTreat : Treat
         {
             SweetTreat treat = collider.gameObject.GetComponent<SweetTreat>();
             HandleTreatCollision(treat);
+        } else if (collider.CompareTag("Ground"))
+        {
+            FallThrough(collider);
         }
     }
 
@@ -114,17 +117,5 @@ public class ExplosiveTreat : Treat
         ExplosionVolume ev = explosion.GetComponent<ExplosionVolume>();
         ev.Initialize(maxExplosiveForce, blastRadius, explosionDamage);
         Destroy(gameObject);
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

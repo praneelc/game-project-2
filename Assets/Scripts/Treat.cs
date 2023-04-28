@@ -28,6 +28,20 @@ public abstract class Treat : MonoBehaviour
         rb.isKinematic = false;
         wasThrown = true;
         rb.interpolation = RigidbodyInterpolation.None;
+    }
 
+    // Disable collisions so treat sinks through ground and despawn when it hits z level
+    protected void FallThrough(Collider groundCollider)
+    {
+        Physics.IgnoreCollision(groundCollider, GetComponent<Collider>());
+    }
+
+    private void Update()
+    {
+        if (transform.position.z < -5.0f)
+        {
+            Destroy(gameObject);
+            Debug.Log("Destroyed treat");
+        }
     }
 }

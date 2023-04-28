@@ -9,6 +9,7 @@ TagManager:
   - ExplosiveTreat
   - PlayerHead
   - PlayerBody
+  - Ground
   layers:
   - Default
   - TransparentFX
