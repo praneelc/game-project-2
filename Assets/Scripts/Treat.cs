@@ -34,6 +34,7 @@ public abstract class Treat : MonoBehaviour
     protected void FallThrough(Collider groundCollider)
     {
         Physics.IgnoreCollision(groundCollider, GetComponent<Collider>());
+        rb.AddForce(Vector3.up * 5, ForceMode.Acceleration);
     }
 
     private void Update()

@@ -47,9 +47,11 @@ public class ExplosiveTreat : Treat
     private void OnCollisionEnter(Collision collision)
     {
         Collider collider = collision.collider;
-        if (collider.CompareTag("PlayerBody") || collider.CompareTag("PlayerHead")) {
+        if (collider.CompareTag("PlayerBody") || collider.CompareTag("PlayerHead") ){
             PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
             HandlePlayerCollision(player);
+        } else if (collider.CompareTag("PlayerShield")) {
+            collider.gameObject.GetComponent<PlayerShield>().player.AddShield(-Damage, 0);
         } else if (collider.CompareTag("PlayerHand"))
         {
             StartCoroutine("StartCountdown");
@@ -63,6 +65,7 @@ public class ExplosiveTreat : Treat
             FallThrough(collider);
         }
     }
+
 
     public IEnumerator StartCountdown()
     {

@@ -20,6 +20,9 @@ public class PlayerManager : MonoBehaviour
 
     public float FullnessDepletionRate { get; private set; }  = .1f;
 
+    [SerializeField]
+    private GameObject playerShield;
+
     private void Start()
     {
         health = MAX_HEALTH;
@@ -28,6 +31,10 @@ public class PlayerManager : MonoBehaviour
         shieldRemainingTime = 0;
 
         uIManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<PlayerUIManager>();
+
+        playerShield = transform.Find("PlayerShield").gameObject;
+        playerShield.SetActive(false);
+
     }
 
     private void Update()
@@ -37,9 +44,37 @@ public class PlayerManager : MonoBehaviour
         uIManager.UpdateFullness();
         uIManager.UpdateScore();
         uIManager.UpdateShield();
+
+        TickShield();
+
     }
 
+    
+
     #region General
+
+    public void TickShield()
+    {
+        shieldRemainingTime = Mathf.Max(0, shieldRemainingTime - Time.deltaTime);
+
+        if (playerShield.active && (shieldRemainingTime <= 0 || shield <= 0))
+            playerShield.SetActive(false);
+    }
+
+    public void ToggleShield()
+    {
+        if (playerShield.active)
+        {
+            playerShield.SetActive(false);
+        }
+        else
+        {
+            if (shield > 0 && shieldRemainingTime > 0)
+            {
+                playerShield.SetActive(true);
+            }
+        }
+    }
 
     public void TickPlayerAttributes(float deltaTime)
     {

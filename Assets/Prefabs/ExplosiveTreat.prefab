@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8059471944650984089}
   - component: {fileID: 8059471944650984085}
   - component: {fileID: 2429269525330501200}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: ExplosiveTreat
   m_TagString: ExplosiveTreat
   m_Icon: {fileID: 0}
@@ -113,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Points: -1
   owner: {fileID: 0}
+  wasThrown: 0
   Damage: 10
   maxExplosiveForce: 20
   blastRadius: 0.5
@@ -120,6 +121,7 @@ MonoBehaviour:
     type: 3}
   explosionDamage: 20
   secondaryOwner: {fileID: 0}
+  diffuseFlag: 0
 --- !u!54 &2429269525330501200
 Rigidbody:
   m_ObjectHideFlags: 0
