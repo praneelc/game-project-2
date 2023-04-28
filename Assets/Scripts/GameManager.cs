@@ -45,6 +45,8 @@ public class GameManager : MonoBehaviour
         inputActions["LeftHandClose"].canceled += _ => leftHand.OpenHand();
         inputActions["RightHandClose"].performed += _ => rightHand.CloseHand();
         inputActions["RightHandClose"].canceled += _ => rightHand.OpenHand();
+        inputActions["ShowUI"].performed += _ => leftHand.ShowUI();
+        inputActions["ShowUI"].canceled += _ => leftHand.HideUI();
 
         InvokeRepeating("SpawnTreat", 0, treatInterval);
         InvokeRepeating("SpawnTarget", 0, targetInterval);

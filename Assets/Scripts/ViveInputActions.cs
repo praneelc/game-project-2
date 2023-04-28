@@ -44,6 +44,15 @@ public partial class @ViveInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""ShowUI"",
+                    ""type"": ""PassThrough"",
+                    ""id"": ""3f70556c-281a-4717-87e7-cde26c781700"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -68,6 +77,17 @@ public partial class @ViveInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""RightHandClose"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bffdda61-de2f-4f52-a811-5761c66cee09"",
+                    ""path"": ""<XRInputV1::HTC::HTCViveControllerOpenXR>{LeftHand}/grippressed"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShowUI"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -78,6 +98,7 @@ public partial class @ViveInputActions: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_LeftHandClose = m_Player.FindAction("LeftHandClose", throwIfNotFound: true);
         m_Player_RightHandClose = m_Player.FindAction("RightHandClose", throwIfNotFound: true);
+        m_Player_ShowUI = m_Player.FindAction("ShowUI", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -141,12 +162,14 @@ public partial class @ViveInputActions: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_LeftHandClose;
     private readonly InputAction m_Player_RightHandClose;
+    private readonly InputAction m_Player_ShowUI;
     public struct PlayerActions
     {
         private @ViveInputActions m_Wrapper;
         public PlayerActions(@ViveInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @LeftHandClose => m_Wrapper.m_Player_LeftHandClose;
         public InputAction @RightHandClose => m_Wrapper.m_Player_RightHandClose;
+        public InputAction @ShowUI => m_Wrapper.m_Player_ShowUI;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -162,6 +185,9 @@ public partial class @ViveInputActions: IInputActionCollection2, IDisposable
             @RightHandClose.started += instance.OnRightHandClose;
             @RightHandClose.performed += instance.OnRightHandClose;
             @RightHandClose.canceled += instance.OnRightHandClose;
+            @ShowUI.started += instance.OnShowUI;
+            @ShowUI.performed += instance.OnShowUI;
+            @ShowUI.canceled += instance.OnShowUI;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -172,6 +198,9 @@ public partial class @ViveInputActions: IInputActionCollection2, IDisposable
             @RightHandClose.started -= instance.OnRightHandClose;
             @RightHandClose.performed -= instance.OnRightHandClose;
             @RightHandClose.canceled -= instance.OnRightHandClose;
+            @ShowUI.started -= instance.OnShowUI;
+            @ShowUI.performed -= instance.OnShowUI;
+            @ShowUI.canceled -= instance.OnShowUI;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -193,5 +222,6 @@ public partial class @ViveInputActions: IInputActionCollection2, IDisposable
     {
         void OnLeftHandClose(InputAction.CallbackContext context);
         void OnRightHandClose(InputAction.CallbackContext context);
+        void OnShowUI(InputAction.CallbackContext context);
     }
 }

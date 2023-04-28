@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerHandController : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class PlayerHandController : MonoBehaviour
 
     private readonly Vector3 holdPosition = new Vector3(0, 0, .08f);
     private GameObject heldObject;
+
+    [SerializeField]
+    public Image uicanvas;
 
     private Vector3 heldObjectLastPos;
     private bool throwFlag = false;
@@ -162,6 +166,27 @@ public class PlayerHandController : MonoBehaviour
         }
     }
 
+    public void ShowUI()
+    {
+        Debug.Log("Buttons Pressed");
+        CanvasGroup can = transform.Find("UI Canvas").GetComponent<CanvasGroup>();
+         if (can != null)
+        {
+            can.alpha = 1;
+        }
+    }
+
+    public void HideUI()
+    {
+        Debug.Log("Buttons Released");
+
+        CanvasGroup can = transform.Find("UI Canvas").GetComponent<CanvasGroup>();
+        if (can != null)
+        {
+            can.alpha = 0;
+        }
+
+    }
 
     // OnCollisionEnter
     // -> touchingSweet

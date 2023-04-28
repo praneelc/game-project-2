@@ -22,6 +22,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "ShowUI",
+                    "type": "PassThrough",
+                    "id": "3f70556c-281a-4717-87e7-cde26c781700",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -44,6 +53,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "RightHandClose",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bffdda61-de2f-4f52-a811-5761c66cee09",
+                    "path": "<XRInputV1::HTC::HTCViveControllerOpenXR>{LeftHand}/grippressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShowUI",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
