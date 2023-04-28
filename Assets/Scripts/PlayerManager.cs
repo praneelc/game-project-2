@@ -119,7 +119,7 @@ public class PlayerManager : MonoBehaviour
     public float RestoreFullness(float fullnessRestored)
     {
         fullness = Mathf.Clamp(fullness + fullnessRestored, 0, MAX_FULLNESS);
-        Debug.Log("Player fullness increased by " + fullnessRestored + "! Current fullness is " + fullness);
+        //Debug.Log("Player fullness increased by " + fullnessRestored + "! Current fullness is " + fullness);
         return fullness;
     }
 

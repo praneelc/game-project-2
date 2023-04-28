@@ -7,6 +7,7 @@ public abstract class Treat : MonoBehaviour
     public int Points;
     protected Rigidbody rb;
     public PlayerHandController owner;
+    public bool wasThrown = false;
 
     public void Initialize(Vector3 vel)
     {
@@ -19,10 +20,14 @@ public abstract class Treat : MonoBehaviour
         rb.isKinematic = true;
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
     }
 
-    public void UnfreezeTreat()
+    public virtual void UnfreezeTreat()
     {
         rb.isKinematic = false;
+        wasThrown = true;
+        rb.interpolation = RigidbodyInterpolation.None;
+
     }
 }

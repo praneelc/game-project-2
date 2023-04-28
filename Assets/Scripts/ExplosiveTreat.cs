@@ -18,6 +18,8 @@ public class ExplosiveTreat : Treat
     private float timeInHand = -1;
     private readonly float TIME_TO_EXPLODE = 0.3f;
 
+    public bool diffuseFlag = false;
+
     private void HandleTreatCollision(SweetTreat treat)
     {
         if (treat == null)
@@ -28,7 +30,7 @@ public class ExplosiveTreat : Treat
         // Explode();
     }
 
-    private void HandlePlayerCollision(PlayerManager player)
+    public void HandlePlayerCollision(PlayerManager player)
     {
         Debug.Log("ExplosiveTreat collided with player: taking " + Damage + " damage");
 
@@ -48,6 +50,9 @@ public class ExplosiveTreat : Treat
         if (collider.CompareTag("PlayerBody") || collider.CompareTag("PlayerHead")) {
             PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
             HandlePlayerCollision(player);
+        } else if (collider.CompareTag("PlayerHand"))
+        {
+            StartCoroutine("StartCountdown");
         }
         else if (collider.CompareTag("SweetTreat"))
         {
@@ -56,22 +61,47 @@ public class ExplosiveTreat : Treat
         }
     }
 
-    public void StartCountdown()
+    public IEnumerator StartCountdown()
     {
         timeInHand = 0.0f;
+
+        while (timeInHand <= TIME_TO_EXPLODE)
+        {
+            timeInHand += Time.deltaTime;
+            if (this.diffuseFlag) // Check for Diffuse Flag
+            {
+                Diffuse();
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        if (owner != null)
+        {
+            owner.FreeHand();
+            owner.removeTreat(this);
+        }
+        Explode();
     }
 
     public void Diffuse()
     {
+        StopCoroutine("StartCountdown");
         if (owner == null || secondaryOwner == null)
         {
-            Debug.LogError("Should not diffuse explosive treat! Owner is " + owner + " and secondary owner is " + secondaryOwner);
-            return;
+            Debug.LogWarning("Should not diffuse explosive treat! Owner is " + owner + " and secondary owner is " + secondaryOwner);
         }
-        this.owner.FreeHand();
-        this.secondaryOwner.FreeHand();
-        owner.removeTreat(this);
-        secondaryOwner.removeTreat(this);
+
+        if (owner != null)
+        {
+            owner.FreeHand();
+            owner.removeTreat(this);
+        }
+        if (secondaryOwner != null)
+        {
+            secondaryOwner.FreeHand();
+            secondaryOwner.removeTreat(this);
+        }
         // TODO: require that hands hold explosive for a while until it disappears
         Destroy(gameObject);
         Debug.Log("Diffused explosive treat with 2 hands");
@@ -95,20 +125,6 @@ public class ExplosiveTreat : Treat
     // Update is called once per frame
     void Update()
     {
-        if (timeInHand >= 0)
-        {
-            timeInHand += Time.deltaTime;
-        }
 
-        if (timeInHand > TIME_TO_EXPLODE)
-        {
-            if (secondaryOwner != null)
-            {
-                Debug.LogWarning("Treat should've been diffused if there's a second owner");
-            }
-            owner.FreeHand();
-            owner.removeTreat(this);
-            Explode();
-        }
     }
 }

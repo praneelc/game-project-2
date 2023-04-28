@@ -15,7 +15,7 @@ public class PlayerHandController : MonoBehaviour
 
     private Vector3 heldObjectLastPos;
     private bool throwFlag = false;
-    private float throwForce = 1f;
+    private float throwForce = 3f;
 
     public void CloseHand()
     {
@@ -23,7 +23,6 @@ public class PlayerHandController : MonoBehaviour
         handOpen = false;
 
         heldObject = NearestCatchable();
-        catchableObjects.Remove(heldObject);
         Debug.Log("Caught Something?: " + heldObject != null);
     }
 
@@ -32,8 +31,8 @@ public class PlayerHandController : MonoBehaviour
         Debug.Log("Hand Opening!");
         handOpen = true;
 
-        // TODO: Release held object
-        if (heldObject != null)
+        // Can only throw sweet treats, not explosive ones
+        if (heldObject != null && heldObject.CompareTag("SweetTreat"))
         {
             this.throwFlag = true;
         }
@@ -91,44 +90,42 @@ public class PlayerHandController : MonoBehaviour
 
     private GameObject NearestCatchable()
     {
-        GameObject caught = null;
+        // Redundant: remove null values (destroyed objects) in catcheableObjects array to avoid null ref exceptions
+        catchableObjects.RemoveAll(obj => obj == null);
+
+        GameObject nearestCatchable = null;
         float minDistance = float.MaxValue;
 
         foreach (GameObject obj in catchableObjects){
-            if (obj == null)
-            {
-                Debug.LogWarning("Should not have null object in catchable objects! Length: " + catchableObjects.Count);
-                continue;
-            }
             float dist = Vector3.Distance(obj.transform.position, this.transform.position);
 
             if (dist < minDistance) {
-                caught = obj;
+                nearestCatchable = obj;
                 minDistance = dist;
             }
         }
         
-        if (caught == null)
+        if (nearestCatchable == null)
         {
             return null;
         }
 
-        switch (caught.tag)
+        switch (nearestCatchable.tag)
         {
             case "SweetTreat":
-                CatchTreat(caught);
+                CatchTreat(nearestCatchable);
                 break;
             case "ExplosiveTreat":
                 {
-                    ExplosiveTreat explosiveTreat = caught.GetComponent<ExplosiveTreat>();
+                    ExplosiveTreat explosiveTreat = nearestCatchable.GetComponent<ExplosiveTreat>();
                     if (explosiveTreat.owner == null) // this is the first hand to catch the explosive treat
                     {
-                        CatchTreat(caught);
-                        explosiveTreat.StartCountdown();
+                        CatchTreat(nearestCatchable);
+                        explosiveTreat.StartCoroutine("StartCountdown");
                     } else // this is the second hand to diffuse the explosive treat
                     {
                         explosiveTreat.secondaryOwner = this;
-                        explosiveTreat.Diffuse();
+                        explosiveTreat.diffuseFlag = true;
                     }
                 }
                 break;
@@ -136,7 +133,7 @@ public class PlayerHandController : MonoBehaviour
                 break;
         }
 
-        return caught;
+        return nearestCatchable;
     }
 
     private void Update()
@@ -144,6 +141,12 @@ public class PlayerHandController : MonoBehaviour
         if (throwFlag)
         {
             // Check sweet or explosive
+            SweetTreat sweetTreat = heldObject.GetComponent<SweetTreat>();
+            if (sweetTreat == null)
+            {
+                Debug.LogError("Trying to throw non-sweet treat object");
+                return;
+            }
             heldObject.GetComponent<SweetTreat>().UnfreezeTreat();
             heldObject.GetComponent<Rigidbody>().AddForce((heldObject.transform.position - heldObjectLastPos) / Time.deltaTime * throwForce, ForceMode.Impulse);
             heldObject.transform.parent = null;

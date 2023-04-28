@@ -22,8 +22,13 @@ public class Target : MonoBehaviour
 
     public void Initialize(float maxAge)
     {
+        Initialize(maxAge, 5);
+    }
+    public void Initialize(float maxAge, int numPoints)
+    {
         this.rb = GetComponent<Rigidbody>();
         this.maxAge = maxAge;
+        this.Points = numPoints;
     }
 
     private void OnCollisionEnter(Collision collision)

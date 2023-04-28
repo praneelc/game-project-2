@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SweetTreat : Treat
 {
-    public bool wasThrown;
     [SerializeField]
     private float healthRestored;
     [SerializeField]

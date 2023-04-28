@@ -12,9 +12,10 @@ public class Shield : Target
 
     public override void OnHit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("SweetTreat"))
         {
-            collision.gameObject.GetComponent<PlayerManager>().AddShield(this.shield, this.shieldTime);
+            PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+            player.AddShield(this.shield, this.shieldTime);
         }
     }
 }

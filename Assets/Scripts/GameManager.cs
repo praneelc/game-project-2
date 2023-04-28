@@ -109,7 +109,9 @@ public class GameManager : MonoBehaviour
 
     public void SpawnTreat()
     {
-        Vector3 targetPos = head.transform.position;
+        // Random float; if <= explosiveChance, spawn explosive treat, else sweettreat
+        bool spawnExplosive = Random.Range(0f, 1f) < explosiveChance;
+        Vector3 targetPos = head.transform.position + (spawnExplosive ? Vector3.zero : Random.insideUnitSphere * 0.5f);
         heightOffset = -targetPos.y/2;
 
         // Select a random direction from appropriate range around player
@@ -119,7 +121,7 @@ public class GameManager : MonoBehaviour
         // Select a point horizon-distance away along that line
         Vector3 spawnPoint = targetPos + spawnDist * spawnDir.normalized + Vector3.up * (targetPos.y + heightOffset);
 
-        Debug.Log(player.gameObject.name);
+        //Debug.Log(player.gameObject.name);
         // Determine the velocity needed from that point assuming UnityEngine.Physics.gravity to make the treat target the player
         // get velocity direction (z and x components only) from spawn direction
         // pick random angle (angle from ground) for launch, and calculate velocity magnitude accordingly 
@@ -132,10 +134,9 @@ public class GameManager : MonoBehaviour
 
         Vector3 spawnVelocity = velMag*Mathf.Cos(radAngle)*(-Vector3.Normalize(spawnDir)+Vector3.up*Mathf.Tan(radAngle));
 
-        // Random float; if <= explosiveChance, spawn explosive treat, else sweettreat
         float f = Random.Range(0.0f, 1.0f);
 
-        if (f < this.explosiveChance)
+        if (spawnExplosive)
         {
             SpawnExplosive(spawnPoint, spawnVelocity);
         } else
