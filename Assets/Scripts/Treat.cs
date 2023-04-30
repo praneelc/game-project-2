@@ -9,7 +9,7 @@ public abstract class Treat : MonoBehaviour
     public PlayerHandController owner;
     public bool wasThrown = false;
 
-    public void Initialize(Vector3 vel)
+    public virtual void Initialize(Vector3 vel)
     {
         rb = gameObject.GetComponent<Rigidbody>();
         rb.velocity = vel;
@@ -34,7 +34,7 @@ public abstract class Treat : MonoBehaviour
     protected void FallThrough(Collider groundCollider)
     {
         Physics.IgnoreCollision(groundCollider, GetComponent<Collider>());
-        rb.AddForce(Vector3.up * 5, ForceMode.Acceleration);
+        //rb.AddForce(Vector3.up * 5, ForceMode.Acceleration);
     }
 
     private void Update()

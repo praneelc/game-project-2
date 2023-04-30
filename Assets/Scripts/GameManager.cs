@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
         Vector3 spawnDir = Quaternion.Euler(0, randAngle,0) * player.transform.forward;
 
         // Select a point horizon-distance away along that line
-        Vector3 spawnPoint = targetPos + spawnDist * spawnDir.normalized + Vector3.up * (targetPos.y + heightOffset);
+        Vector3 spawnPoint = targetPos + spawnDist * spawnDir.normalized + Vector3.up * (targetPos.y + heightOffset + 1f);
 
         //Debug.Log(player.gameObject.name);
         // Determine the velocity needed from that point assuming UnityEngine.Physics.gravity to make the treat target the player
@@ -134,7 +134,7 @@ public class GameManager : MonoBehaviour
         float velMag;
         
         radAngle = Random.Range(40, 60) * Mathf.PI / 180;
-        velMag = spawnDist / (Mathf.Cos(radAngle)) * Mathf.Sqrt(Mathf.Abs(UnityEngine.Physics.gravity.y / (2)/(spawnDist * Mathf.Tan(radAngle) - heightOffset)));
+        velMag = spawnDist / (Mathf.Cos(radAngle)) * Mathf.Sqrt(Mathf.Abs(UnityEngine.Physics.gravity.y / (2)/(spawnDist * Mathf.Tan(radAngle) - heightOffset + 1f)));
 
         Vector3 spawnVelocity = velMag*Mathf.Cos(radAngle)*(-Vector3.Normalize(spawnDir)+Vector3.up*Mathf.Tan(radAngle));
 
@@ -155,15 +155,18 @@ public class GameManager : MonoBehaviour
         // TODO: determine spawning algorithm
         //TODO make this actually random
         int index = Random.Range(0, sweetTreatPrefabs.Count);
+        Debug.Log(index);
         SweetTreat newTreat = Instantiate(sweetTreatPrefabs[index], pos, Quaternion.identity).GetComponent<SweetTreat>();
         newTreat.Initialize(velocity);
+
+        newTreat.GetComponent<Rigidbody>().AddTorque(Random.insideUnitSphere * 0.5f);
     }
 
     public void SpawnExplosive(Vector3 pos, Vector3 velocity)
     {
         // TODO
-        int index = Random.Range(0, explosiveTreatPrefabs.Count);
-        ExplosiveTreat newTreat = Instantiate(explosiveTreatPrefabs[index], pos, Quaternion.identity).GetComponent<ExplosiveTreat>();
+        int index = Random.Range(0, sweetTreatPrefabs.Count);
+        ExplosiveTreat newTreat = Instantiate(sweetTreatPrefabs[index], pos, Quaternion.identity).GetComponent<ExplosiveTreat>();
         newTreat.Initialize(velocity);
     }
 

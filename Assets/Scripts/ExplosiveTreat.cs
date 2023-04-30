@@ -20,6 +20,35 @@ public class ExplosiveTreat : Treat
 
     public bool diffuseFlag = false;
 
+
+    private void Start()
+    {
+        
+
+        
+    }
+
+    public override void Initialize(Vector3 vel)
+    {
+        base.Initialize(vel);
+
+        GetComponent<SweetTreat>().enabled = false;
+
+        Material[] mats = GetComponent<MeshRenderer>().materials;
+
+        foreach (Material mat in mats)
+        {
+
+            if (mat.HasInteger("_IsExplosive"))
+            {
+                mat.SetInteger("_IsExplosive", 1);
+            }
+        }
+
+        gameObject.tag = "ExplosiveTreat";
+        gameObject.layer = 7;
+    }
+
     private void HandleTreatCollision(SweetTreat treat)
     {
         if (treat == null)

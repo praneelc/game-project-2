@@ -38,7 +38,11 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
+<<<<<<< Updated upstream
   m_IndirectSpecularColor: {r: 0.21350159, g: 0.6604426, b: 0.86271155, a: 1}
+=======
+  m_IndirectSpecularColor: {r: 0.17930236, g: 0.5562457, b: 0.7246641, a: 1}
+>>>>>>> Stashed changes
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -547,6 +551,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170114366}
   m_CullTransparentMesh: 1
+<<<<<<< Updated upstream
 --- !u!1 &256720909
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,6 +687,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256720909}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> Stashed changes
 --- !u!1 &385577576
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,7 +720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   treatInterval: 1
-  explosiveChance: 0.38
+  explosiveChance: 1
   powerupInterval: 6
   targetInterval: 3
   inputActions:
@@ -790,7 +797,16 @@ MonoBehaviour:
   spawnDist: 10
   heightOffset: 3
   sweetTreatPrefabs:
-  - {fileID: 8544539777148799536, guid: ac1b99879c3533d4b84961961bf18a5c, type: 3}
+  - {fileID: 1970728086122773261, guid: d66e3aac3469b45e992a1c7209d1d8c3, type: 3}
+  - {fileID: 8544539777148799536, guid: d2a286c1006f3427ca7f4a3da87b2a88, type: 3}
+  - {fileID: 8544539777148799536, guid: 910a8c2d523a447018ac6c2cd5b497dc, type: 3}
+  - {fileID: 8544539777148799536, guid: 47653a570fa104e1a803dc4fae21ac5f, type: 3}
+  - {fileID: 8544539777148799536, guid: 3742069d87c394be8a704d3445636adc, type: 3}
+  - {fileID: 8544539777148799536, guid: ad50822ef5391480d8db51a7f3fd88d6, type: 3}
+  - {fileID: 8544539777148799536, guid: 2d1038bd07ad64a308a78b0be10009e9, type: 3}
+  - {fileID: 8544539777148799536, guid: f7c2c68ab91e54a41a28b5ab1b6c11cf, type: 3}
+  - {fileID: 8544539777148799536, guid: 0d7638326b85b48988333c9d4376b6ec, type: 3}
+  - {fileID: 8544539777148799536, guid: 845368c0cdd6f40148c9bdf626734446, type: 3}
   explosiveTreatPrefabs:
   - {fileID: 8059471944650984088, guid: 1046cab8a6a6b2747b402f0f35730ea3, type: 3}
   targetPrefab: {fileID: 6890672956629521471, guid: a0176bc7f4c0540d1b7de91e37064b5e,
@@ -987,21 +1003,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_RootOrder
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6987619183631400318, guid: bdae739928d11914db56a517c5bf5709,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 2.34
-      objectReference: {fileID: 0}
-    - target: {fileID: 6987619183631400318, guid: bdae739928d11914db56a517c5bf5709,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 2.8799999
-      objectReference: {fileID: 0}
-    - target: {fileID: 6987619183631400318, guid: bdae739928d11914db56a517c5bf5709,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 2.34
       objectReference: {fileID: 0}
     - target: {fileID: 6987619183631400318, guid: bdae739928d11914db56a517c5bf5709,
         type: 3}
