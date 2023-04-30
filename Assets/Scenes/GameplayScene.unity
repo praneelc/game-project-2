@@ -38,11 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-<<<<<<< Updated upstream
   m_IndirectSpecularColor: {r: 0.21350159, g: 0.6604426, b: 0.86271155, a: 1}
-=======
-  m_IndirectSpecularColor: {r: 0.17930236, g: 0.5562457, b: 0.7246641, a: 1}
->>>>>>> Stashed changes
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -551,7 +547,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 170114366}
   m_CullTransparentMesh: 1
-<<<<<<< Updated upstream
 --- !u!1 &256720909
 GameObject:
   m_ObjectHideFlags: 0
@@ -687,8 +682,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256720909}
   m_CullTransparentMesh: 1
-=======
->>>>>>> Stashed changes
 --- !u!1 &385577576
 GameObject:
   m_ObjectHideFlags: 0
