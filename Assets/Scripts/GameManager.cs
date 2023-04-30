@@ -206,7 +206,7 @@ public class GameManager : MonoBehaviour
         Quaternion rot = Quaternion.LookRotation(Vector3.up * 1 + player.transform.position - spawnPoint, Vector3.up);
 
         int index = Random.Range(0, powerupPrefabs.Count);
-        Target powerup = Instantiate(powerupPrefabs[index], spawnPoint, Quaternion.identity).GetComponent<Target>();
+        Target powerup = Instantiate(powerupPrefabs[index], spawnPoint, Quaternion.Euler(0, 180, 0)).GetComponent<Target>();
         powerup.Initialize(5f);
     }
 
