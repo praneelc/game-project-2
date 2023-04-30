@@ -12,8 +12,6 @@ public class SweetTreat : Treat
     public override void Initialize(Vector3 vel)
     {
         base.Initialize(vel);
-
-        GetComponent<ExplosiveTreat>().enabled = false;
     }
 
     private void OnCollisionEnter(Collision collision)

@@ -44,7 +44,7 @@ public class PlayerUIManager : MonoBehaviour
     {
         foreach (var timer in timers)
         {
-            timer.SetText(formatTime(gm.GameTime));
+            timer.SetText(formatTime(gm.MAX_TIME - gm.GameTime));
         }
     }
 
@@ -62,7 +62,7 @@ public class PlayerUIManager : MonoBehaviour
     {
         foreach (var score in scores)
         {
-            score.SetText(string.Format("{0:000.0}", player.Score));
+            score.SetText(string.Format("{0:0}", player.Score));
         }
     }
 
@@ -76,7 +76,7 @@ public class PlayerUIManager : MonoBehaviour
         int mins = (int) Mathf.Floor(seconds / 60);
         float secs = seconds % 60;
 
-        return string.Format("{0:00}:{1:00.0}", mins, secs);
+        return string.Format("{0:0}:{1:00}", mins, secs);
     }
 
     public void UpdateHealthBar()

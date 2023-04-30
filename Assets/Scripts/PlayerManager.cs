@@ -44,6 +44,8 @@ public class PlayerManager : MonoBehaviour
         uIManager.UpdateFullness();
         uIManager.UpdateScore();
         uIManager.UpdateShield();
+        uIManager.UpdateFullnessBar();
+        uIManager.UpdateHealthBar();
 
         TickShield();
 

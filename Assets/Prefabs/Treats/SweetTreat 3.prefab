@@ -12,12 +12,11 @@ GameObject:
   - component: {fileID: 4327934423604475230}
   - component: {fileID: 1971517988821415503}
   - component: {fileID: -3689599122499525721}
-  - component: {fileID: 5361455446833295621}
   - component: {fileID: 7108310638435281298}
-  - component: {fileID: 6967592410553005001}
+  - component: {fileID: 6842706631516472479}
   m_Layer: 0
   m_Name: SweetTreat 3
-  m_TagString: Untagged
+  m_TagString: SweetTreat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -31,8 +30,8 @@ Transform:
   m_GameObject: {fileID: 8544539777148799536}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -106,19 +105,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!135 &5361455446833295621
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8544539777148799536}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.07935925
-  m_Center: {x: -0.00051461905, y: 0.011854028, z: 0.001979299}
 --- !u!114 &7108310638435281298
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,26 +122,16 @@ MonoBehaviour:
   wasThrown: 0
   healthRestored: 10
   fullnessRestored: 10
---- !u!114 &6967592410553005001
-MonoBehaviour:
+--- !u!65 &6842706631516472479
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8544539777148799536}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f204e24543c51646a2735844afa68bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Points: -1
-  owner: {fileID: 0}
-  wasThrown: 0
-  Damage: 10
-  maxExplosiveForce: 20
-  blastRadius: 0.5
-  explosionVolume: {fileID: 3455842534788251652, guid: ff8e65bc228750647a5adbce0ac35035,
-    type: 3}
-  explosionDamage: 10
-  secondaryOwner: {fileID: 0}
-  diffuseFlag: 0
+  serializedVersion: 2
+  m_Size: {x: 0.1575183, y: 0.115, z: 0.1587185}
+  m_Center: {x: -0.00051461905, y: 0.011854028, z: 0.001979299}
