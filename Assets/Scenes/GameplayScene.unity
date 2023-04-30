@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.1411718, g: 0.4398956, b: 0.5771226, a: 1}
+  m_IndirectSpecularColor: {r: 0.21350159, g: 0.6604426, b: 0.86271155, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -582,7 +582,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 653, y: -484}
+  m_AnchoredPosition: {x: 653.0001, y: -484.00003}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &256720911
@@ -825,11 +825,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f3841152d3e24784a4a9fbe79f5fa62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timer: {fileID: 1268918706}
+  timers:
+  - {fileID: 1268918706}
+  - {fileID: 961175111}
   health: {fileID: 429441756}
   fullness: {fileID: 2105563575}
-  score: {fileID: 466553161}
+  scores:
+  - {fileID: 466553161}
+  - {fileID: 760844337}
   shield: {fileID: 1565842600}
+  healthBar: {fileID: 170114368}
+  fullnessBar: {fileID: 256720911}
 --- !u!1 &429441754
 GameObject:
   m_ObjectHideFlags: 0
@@ -1055,36 +1061,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 434717841}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &434717845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 175411324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5a2a9c34df4095f47b9ca8f975175f5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Device: 0
-  m_PoseSource: 2
-  m_PoseProviderComponent: {fileID: 0}
-  m_TrackingType: 2
-  m_UpdateType: 0
-  m_UseRelativeTransform: 0
---- !u!114 &434717848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 175411324}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 870286c02a6ba8b4088a8f5753e50de6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &466553159
 GameObject:
   m_ObjectHideFlags: 0
@@ -1588,7 +1564,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Points: '
+  m_text: score here
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

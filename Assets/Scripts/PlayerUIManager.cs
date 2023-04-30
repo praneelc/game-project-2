@@ -10,15 +10,22 @@ public class PlayerUIManager : MonoBehaviour
 
 
     [SerializeField]
-    TextMeshProUGUI timer;
+    List<TextMeshProUGUI> timers;
     [SerializeField]
     TextMeshProUGUI health;
     [SerializeField]
     TextMeshProUGUI fullness;
     [SerializeField]
-    TextMeshProUGUI score;
+    List<TextMeshProUGUI> scores;
     [SerializeField]
     TextMeshProUGUI shield;
+
+    [SerializeField]
+    TextMeshProUGUI healthBar;
+    [SerializeField]
+    TextMeshProUGUI fullnessBar;
+
+    private readonly int BAR_LENGTH = 50;
 
     private void Start()
     {
@@ -35,10 +42,11 @@ public class PlayerUIManager : MonoBehaviour
 
     private void Update()
     {
-        timer.SetText(formatTime(gm.GameTime));
+        foreach (var timer in timers)
+        {
+            timer.SetText(formatTime(gm.GameTime));
+        }
     }
-
-
 
     public void UpdateHealth()
     {
@@ -52,7 +60,10 @@ public class PlayerUIManager : MonoBehaviour
 
     public void UpdateScore()
     {
-        score.SetText(string.Format("{0:000.0}", player.Score));
+        foreach (var score in scores)
+        {
+            score.SetText(string.Format("{0:000.0}", player.Score));
+        }
     }
 
     public void UpdateShield()
@@ -68,9 +79,19 @@ public class PlayerUIManager : MonoBehaviour
         return string.Format("{0:00}:{1:00.0}", mins, secs);
     }
 
+    public void UpdateHealthBar()
+    {
+        float healthRatio = player.health / player.MAX_HEALTH;
+        int numBars = Mathf.RoundToInt(healthRatio * BAR_LENGTH);
+        string text = new string('|', numBars);
+        healthBar.SetText(text);
+    }
 
-
-
-
-
+    public void UpdateFullnessBar()
+    {
+        float fullnessRatio = player.fullness / player.MAX_FULLNESS;
+        int numBars = Mathf.RoundToInt(fullnessRatio * BAR_LENGTH);
+        string text = new string('|', numBars);
+        fullnessBar.SetText(text);
+    }
 }
