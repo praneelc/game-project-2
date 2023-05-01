@@ -19,7 +19,7 @@ public class PlayerHandController : MonoBehaviour
 
     private Vector3 heldObjectLastPos;
     private bool throwFlag = false;
-    private float throwForce = 3f;
+    private float throwForce = -0.3f * Physics.gravity.y;
 
     public void CloseHand()
     {

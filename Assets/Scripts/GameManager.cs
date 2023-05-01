@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -59,16 +60,17 @@ public class GameManager : MonoBehaviour
         inputActions.Enable();
     }
 
-    private void OnDisable()
-    {
-        inputActions.Disable();
-    }
-
     // Update is called once per frame
     void Update()
     {
         GameTime += Time.deltaTime;
         RenderSettings.skybox.SetFloat("_Rotation", Time.time * 0.5f);
+
+        if (GameTime >= MAX_TIME)
+        {
+            inputActions.Disable();
+            SceneManager.LoadScene("StartEndScene");
+        }
     }
 
     #region Game Sequence
