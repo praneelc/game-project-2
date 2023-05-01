@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public readonly float MAX_TIME = 180;
+    public float MAX_TIME = 180f;
     public float GameTime { get; private set; }
 
     [Header("Treat / Target Params")]
@@ -29,6 +29,10 @@ public class GameManager : MonoBehaviour
 
 
     private PlayerManager player;
+
+    private Transform playerPos;
+
+
     private void Awake()
     {
         
@@ -38,6 +42,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        playerPos = GameObject.FindGameObjectWithTag("PlayerHead").transform;
+
         leftHand = GameObject.Find("LeftController").GetComponent<PlayerHandController>();
         rightHand = GameObject.Find("RightController").GetComponent<PlayerHandController>();
         player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
@@ -125,7 +131,7 @@ public class GameManager : MonoBehaviour
         Vector3 spawnDir = Quaternion.Euler(0, randAngle,0) * player.transform.forward;
 
         // Select a point horizon-distance away along that line
-        Vector3 spawnPoint = targetPos + spawnDist * spawnDir.normalized + Vector3.up * (targetPos.y + heightOffset);
+        Vector3 spawnPoint = targetPos + spawnDist * spawnDir.normalized + Vector3.up * (targetPos.y);
 
         //Debug.Log(player.gameObject.name);
         // Determine the velocity needed from that point assuming UnityEngine.Physics.gravity to make the treat target the player
@@ -182,9 +188,8 @@ public class GameManager : MonoBehaviour
         Vector3 spawnDir = Quaternion.Euler(0, randAngle, 0) * player.transform.forward;
 
         // Select a point horizon-distance away along that line
-        Vector3 spawnPoint = player.transform.position + Random.Range(2f, 4f) * spawnDir.normalized + Vector3.up * (player.transform.position.y + heightOffset);
-        Quaternion rot = Quaternion.LookRotation(Vector3.up * 1 + player.transform.position - spawnPoint, Vector3.up);
-        
+        Vector3 spawnPoint = head.transform.position + Random.Range(1f, 4f) * spawnDir.normalized + Vector3.up * (head.transform.position.y);
+        Quaternion rot = Quaternion.LookRotation(head.transform.position - spawnPoint, Vector3.up);        
 
         Target target = Instantiate(targetPrefab, spawnPoint, rot).GetComponent<Target>();
         target.Initialize(5f);
@@ -207,7 +212,7 @@ public class GameManager : MonoBehaviour
         Vector3 spawnDir = Quaternion.Euler(0, randAngle, 0) * player.transform.forward;
 
         // Select a point horizon-distance away along that line
-        Vector3 spawnPoint = player.transform.position + Random.Range(2f, 4f) * spawnDir.normalized + Vector3.up * (player.transform.position.y + heightOffset);
+        Vector3 spawnPoint = head.transform.position + Random.Range(2f, 4f) * spawnDir.normalized + Vector3.up * (head.transform.position.y);
         Quaternion rot = Quaternion.LookRotation(Vector3.up * 1 + player.transform.position - spawnPoint, Vector3.up);
 
         int index = Random.Range(0, powerupPrefabs.Count);

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.215302, g: 0.66594833, b: 0.8698379, a: 1}
+  m_IndirectSpecularColor: {r: 0.10733191, g: 0.3376344, b: 0.44562227, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -712,6 +712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8698a192a3c7a44a0b65b307f8a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MAX_TIME: 120
   treatInterval: 1
   explosiveChance: 0.2
   powerupInterval: 6
@@ -788,7 +789,7 @@ MonoBehaviour:
       m_Flags: 0
   angleSpawnRange: 60
   spawnDist: 10
-  heightOffset: 3
+  heightOffset: 4
   sweetTreatPrefabs:
   - {fileID: 1970728086122773261, guid: d66e3aac3469b45e992a1c7209d1d8c3, type: 3}
   - {fileID: 8544539777148799536, guid: d2a286c1006f3427ca7f4a3da87b2a88, type: 3}

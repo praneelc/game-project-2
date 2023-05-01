@@ -161,7 +161,7 @@
     },
     "m_ActiveTargets": [
         {
-            "m_Id": "a0e2cb0bab3d4934964d6f157722712b"
+            "m_Id": "ae74f811742d4ffaa4c7ddc40f0555a5"
         }
     ]
 }
@@ -459,6 +459,15 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalLitSubTarget",
+    "m_ObjectId": "6023bd63a3a04e8880d284e16649ce68",
+    "m_WorkflowMode": 1,
+    "m_NormalDropOffSpace": 0,
+    "m_ClearCoat": false
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.BlockNode",
     "m_ObjectId": "6b720028a87544608be9c3480e83dd7e",
     "m_Group": {
@@ -720,23 +729,6 @@
 }
 
 {
-    "m_SGVersion": 2,
-    "m_Type": "UnityEditor.Rendering.BuiltIn.ShaderGraph.BuiltInTarget",
-    "m_ObjectId": "a0e2cb0bab3d4934964d6f157722712b",
-    "m_ActiveSubTarget": {
-        "m_Id": "fa9c7f88965c4353aab233446fca848b"
-    },
-    "m_AllowMaterialOverride": false,
-    "m_SurfaceType": 1,
-    "m_ZWriteControl": 0,
-    "m_ZTestMode": 4,
-    "m_AlphaMode": 0,
-    "m_RenderFace": 0,
-    "m_AlphaClip": false,
-    "m_CustomEditorGUI": ""
-}
-
-{
     "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.MultiplyNode",
     "m_ObjectId": "a4e3a02516084ce2be0603fae3a0038a",
@@ -776,6 +768,26 @@
     "m_CustomColors": {
         "m_SerializableColors": []
     }
+}
+
+{
+    "m_SGVersion": 1,
+    "m_Type": "UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget",
+    "m_ObjectId": "ae74f811742d4ffaa4c7ddc40f0555a5",
+    "m_ActiveSubTarget": {
+        "m_Id": "6023bd63a3a04e8880d284e16649ce68"
+    },
+    "m_AllowMaterialOverride": false,
+    "m_SurfaceType": 0,
+    "m_ZTestMode": 4,
+    "m_ZWriteControl": 0,
+    "m_AlphaMode": 0,
+    "m_RenderFace": 2,
+    "m_AlphaClip": false,
+    "m_CastShadows": true,
+    "m_ReceiveShadows": true,
+    "m_CustomEditorGUI": "",
+    "m_SupportVFX": false
 }
 
 {
@@ -1170,13 +1182,5 @@
         "e32": 0.0,
         "e33": 1.0
     }
-}
-
-{
-    "m_SGVersion": 0,
-    "m_Type": "UnityEditor.Rendering.BuiltIn.ShaderGraph.BuiltInLitSubTarget",
-    "m_ObjectId": "fa9c7f88965c4353aab233446fca848b",
-    "m_WorkflowMode": 1,
-    "m_NormalDropOffSpace": 0
 }
 
