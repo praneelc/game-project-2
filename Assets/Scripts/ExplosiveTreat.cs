@@ -129,24 +129,34 @@ public class ExplosiveTreat : Treat
 
 
         // TODO: Determine which method actually works
-        StartCoroutine(ExplosiveVanish());
         StartCoroutine("ExplosiveVanish");
     }
 
     private IEnumerator ExplosiveVanish()
     {
+        transform.SetParent(null);
+        rb.isKinematic = true;
+        rb.velocity = Vector3.zero;
+
         Vector3 startScale = transform.localScale;
 
         float sentinel = 1f;
 
-        this.GetComponent<AudioSource>().PlayOneShot(explosiveDiffused);
+        AudioSource audio = this.GetComponent<AudioSource>();
+        
+        audio.PlayOneShot(explosiveDiffused);
 
         while (sentinel > 0)
         {
-            sentinel -= Time.deltaTime;
+            sentinel = Mathf.Max(sentinel - Time.deltaTime, 0f); 
 
             transform.localScale = startScale * sentinel;
 
+            yield return new WaitForEndOfFrame();
+        }
+
+        while (audio.isPlaying)
+        {
             yield return new WaitForEndOfFrame();
         }
 

@@ -17,7 +17,10 @@ public class PlayerHandController : MonoBehaviour
     [SerializeField]
     public Image uicanvas;
 
-    private Vector3 heldObjectLastPos;
+    private List<Vector3> heldObjectLastPos;
+    private List<float> timeDeltas;
+    private int storedVelCount = 5;
+
     private bool throwFlag = false;
     private float throwForce = -0.7f * Physics.gravity.y;
 
@@ -85,6 +88,9 @@ public class PlayerHandController : MonoBehaviour
         Treat caughtTreat = caught.GetComponent<Treat>();
         caughtTreat.owner = this;
         caughtTreat.FreezeTreat();
+
+        heldObjectLastPos = new();
+        timeDeltas = new();
     }
 
     public void removeTreat(Treat treat)
@@ -142,6 +148,19 @@ public class PlayerHandController : MonoBehaviour
 
     private void Update()
     {
+        if (heldObject != null)
+        {
+            heldObjectLastPos.Add(heldObject.transform.position);
+            timeDeltas.Add(Time.deltaTime);
+
+            if (heldObjectLastPos.Count > storedVelCount)
+            {
+                heldObjectLastPos.RemoveAt(0);
+                timeDeltas.RemoveAt(0);
+            }
+        }
+
+
         if (throwFlag)
         {
             // Check sweet or explosive
@@ -152,18 +171,26 @@ public class PlayerHandController : MonoBehaviour
                 return;
             }
             heldObject.GetComponent<SweetTreat>().UnfreezeTreat();
-            heldObject.GetComponent<Rigidbody>().AddForce((heldObject.transform.position - heldObjectLastPos) / Time.deltaTime * throwForce, ForceMode.Impulse);
+            heldObject.GetComponent<Rigidbody>().AddForce(HeldObjectAverageVelocity() / Time.deltaTime * throwForce, ForceMode.Impulse);
             heldObject.transform.parent = null;
 
             heldObject = null;
             throwFlag = false;
         }
 
+    }
 
-        if (heldObject != null)
+    private Vector3 HeldObjectAverageVelocity()
+    {
+        Vector3 dist = heldObjectLastPos[heldObjectLastPos.Count - 1] - heldObjectLastPos[0];
+        float time = 0f;
+
+        foreach (float f in timeDeltas)
         {
-            heldObjectLastPos = heldObject.transform.position;
+            time += f;
         }
+
+        return dist / time;
     }
 
     public void ShowUI()

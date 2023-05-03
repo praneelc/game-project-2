@@ -13,6 +13,8 @@ public class ExplosionVolume : MonoBehaviour
 
     private float uniformScale = 0f;
 
+    private float initSize = 0.2f;
+
     [Header("Audio")]
     [SerializeField]
     private AudioClip explosion;
@@ -41,7 +43,7 @@ public class ExplosionVolume : MonoBehaviour
     
     private void TickExplosion(float delta)
     {
-        uniformScale += delta * 2;
+        uniformScale += delta/10 + initSize;
         transform.localScale = Vector3.one * uniformScale;
 
         if (transform.localScale.x >= blastRadius)

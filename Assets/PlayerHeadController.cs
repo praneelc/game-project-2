@@ -27,8 +27,6 @@ public class PlayerHeadController : MonoBehaviour
                 PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
                 player.EatTreat(treat);
 
-
-                // TODO: test eating audio
                 StartCoroutine("EatingAudio");
                 
             }
