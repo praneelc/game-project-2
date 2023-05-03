@@ -20,6 +20,10 @@ public class ExplosiveTreat : Treat
 
     public bool diffuseFlag = false;
 
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip explosiveDiffused;
+
 
     private void Start()
     {
@@ -31,22 +35,6 @@ public class ExplosiveTreat : Treat
     public override void Initialize(Vector3 vel)
     {
         base.Initialize(vel);
-
-        //GetComponent<SweetTreat>().enabled = false;
-
-        //Material[] mats = GetComponent<MeshRenderer>().materials;
-
-        //foreach (Material mat in mats)
-        //{
-
-        //    if (mat.HasInteger("_IsExplosive"))
-        //    {
-        //        mat.SetInteger("_IsExplosive", 1);
-        //    }
-        //}
-
-        //gameObject.tag = "ExplosiveTreat";
-        //gameObject.layer = 7;
     }
 
     private void HandleTreatCollision(SweetTreat treat)
@@ -81,6 +69,7 @@ public class ExplosiveTreat : Treat
             HandlePlayerCollision(player);
         } else if (collider.CompareTag("PlayerShield")) {
             collider.gameObject.GetComponent<PlayerShield>().player.AddShield(-Damage, 0);
+            Explode(false);
         } else if (collider.CompareTag("PlayerHand"))
         {
             StartCoroutine("StartCountdown");
@@ -137,17 +126,40 @@ public class ExplosiveTreat : Treat
             secondaryOwner.FreeHand();
             secondaryOwner.removeTreat(this);
         }
-        // TODO: require that hands hold explosive for a while until it disappears
+
+
+        // TODO: Determine which method actually works
+        StartCoroutine(ExplosiveVanish());
+        StartCoroutine("ExplosiveVanish");
+    }
+
+    private IEnumerator ExplosiveVanish()
+    {
+        Vector3 startScale = transform.localScale;
+
+        float sentinel = 1f;
+
+        this.GetComponent<AudioSource>().PlayOneShot(explosiveDiffused);
+
+        while (sentinel > 0)
+        {
+            sentinel -= Time.deltaTime;
+
+            transform.localScale = startScale * sentinel;
+
+            yield return new WaitForEndOfFrame();
+        }
+
         Destroy(gameObject);
         Debug.Log("Diffused explosive treat with 2 hands");
     }
 
-    public void Explode()
+    public void Explode(bool onPlayer = true)
     {
         Debug.Log("Spawning explosion");
         GameObject explosion = Instantiate(explosionVolume, transform.position, Quaternion.identity);
         ExplosionVolume ev = explosion.GetComponent<ExplosionVolume>();
-        ev.Initialize(maxExplosiveForce, blastRadius, explosionDamage);
+        ev.Initialize(maxExplosiveForce, blastRadius, explosionDamage, onPlayer);
         Destroy(gameObject);
     }
 }

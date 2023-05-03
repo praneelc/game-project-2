@@ -57,12 +57,30 @@ public class Target : MonoBehaviour
             {
                 PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
                 player.ScorePoints(this.Points);
-                // GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().TargetDestroyed();
+                // GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>().TargetDestroyed
+
+
+                // TODO: Test!
+                StartCoroutine("PlaySound");
             }
         }
     }
 
-    private void FixedUpdate()
+
+private IEnumerator PlaySound() {
+    AudioSource audio = GetComponent<AudioSource>();
+
+    audio.Play();
+
+    while (audio.isPlaying)
+    {
+        yield return new WaitForEndOfFrame();
+    }
+
+    Destroy(gameObject);
+}
+
+private void FixedUpdate()
     {
         TickMovement(Time.fixedDeltaTime);
     }

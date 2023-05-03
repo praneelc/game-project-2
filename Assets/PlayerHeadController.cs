@@ -4,6 +4,14 @@ using UnityEngine;
 
 public class PlayerHeadController : MonoBehaviour
 {
+    AudioSource audio;
+
+    private void Start()
+    {
+        audio = GetComponent<AudioSource>();
+    }
+
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("SweetTreat"))
@@ -18,7 +26,38 @@ public class PlayerHeadController : MonoBehaviour
                 treat.owner.removeTreat(treat);
                 PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
                 player.EatTreat(treat);
+
+
+                // TODO: test eating audio
+                StartCoroutine("EatingAudio");
+                
             }
         }
+    }
+
+    private IEnumerator EatingAudio()
+    {
+        audio.PlayOneShot(audio.clip);
+
+        float time = 0f;
+        int plays = 1;
+        float interval = 0.2f;
+
+        while (plays < 3)
+        {
+            time += Time.deltaTime;
+
+            if (time >= interval)
+            {
+                audio.PlayOneShot(audio.clip);
+                time -= interval;
+
+                plays++;
+            }
+
+            yield return new WaitForEndOfFrame();
+        }
+
+        StopCoroutine("EatingAudio");
     }
 }

@@ -51,9 +51,11 @@ public class PlayerManager : MonoBehaviour
 
     }
 
-    
+
 
     #region General
+
+    private AudioSource headAudio;
 
     public void TickShield()
     {

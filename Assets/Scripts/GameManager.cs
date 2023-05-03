@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private List<GameObject> explosiveTreatPrefabs;
     [SerializeField]
-    private GameObject targetPrefab;
+    private List<GameObject> targetPrefabs;
     [SerializeField]
     private List<GameObject> powerupPrefabs;
 
@@ -123,8 +123,7 @@ public class GameManager : MonoBehaviour
     {
         // Random float; if <= explosiveChance, spawn explosive treat, else sweettreat
         bool spawnExplosive = Random.Range(0f, 1f) < explosiveChance;
-        Vector3 targetPos = head.transform.position + (spawnExplosive ? Random.insideUnitSphere * 0.3f : Random.insideUnitSphere * 1f);
-        heightOffset = -targetPos.y/2;
+        Vector3 targetPos = head.transform.position - Vector3.up * -1f + (spawnExplosive ? Vector3.up * -.3f : Random.insideUnitSphere * .5f);
 
         // Select a random direction from appropriate range around player
         float randAngle = Random.Range(-angleSpawnRange, angleSpawnRange);
@@ -141,7 +140,7 @@ public class GameManager : MonoBehaviour
         float radAngle;
         float velMag;
         
-        radAngle = Random.Range(40, 60) * Mathf.PI / 180;
+        radAngle = Random.Range(30, 60) * Mathf.PI / 180;
         velMag = spawnDist / (Mathf.Cos(radAngle)) * Mathf.Sqrt(Mathf.Abs(UnityEngine.Physics.gravity.y / (2)/(spawnDist * Mathf.Tan(radAngle) - heightOffset)));
 
         Vector3 spawnVelocity = velMag*Mathf.Cos(radAngle)*(-Vector3.Normalize(spawnDir)+Vector3.up*Mathf.Tan(radAngle));
@@ -189,9 +188,10 @@ public class GameManager : MonoBehaviour
 
         // Select a point horizon-distance away along that line
         Vector3 spawnPoint = head.transform.position + Random.Range(1f, 4f) * spawnDir.normalized + Vector3.up * (head.transform.position.y);
-        Quaternion rot = Quaternion.LookRotation(head.transform.position - spawnPoint, Vector3.up);        
+        Quaternion rot = Quaternion.LookRotation(head.transform.position - spawnPoint, Vector3.up);
 
-        Target target = Instantiate(targetPrefab, spawnPoint, rot).GetComponent<Target>();
+        int index = Random.Range(0, targetPrefabs.Count);
+        Target target = Instantiate(targetPrefabs[index], spawnPoint, rot).GetComponent<Target>();
         target.Initialize(5f);
 
         

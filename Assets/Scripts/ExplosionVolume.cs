@@ -13,16 +13,35 @@ public class ExplosionVolume : MonoBehaviour
 
     private float uniformScale = 0f;
 
-    public void Initialize(float maxExplosiveForce, float blastRadius, float damage)
+    [Header("Audio")]
+    [SerializeField]
+    private AudioClip explosion;
+    [SerializeField]
+    private AudioClip shieldExplosion;
+
+    private AudioSource audioSource;
+
+
+    public void Initialize(float maxExplosiveForce, float blastRadius, float damage, bool onPlayer = true)
     {
+        audioSource = this.GetComponent<AudioSource>();
         this.maxExplosiveForce = maxExplosiveForce;
         this.blastRadius = blastRadius;
         this.Damage = damage;
+
+        if (onPlayer)
+        {
+            GameObject.FindGameObjectWithTag("PlayerHead").GetComponent<AudioSource>().PlayOneShot(explosion);
+        }
+        else
+        {
+            audioSource.PlayOneShot(shieldExplosion);
+        }
     }
     
     private void TickExplosion(float delta)
     {
-        uniformScale += delta;
+        uniformScale += delta * 2;
         transform.localScale = Vector3.one * uniformScale;
 
         if (transform.localScale.x >= blastRadius)

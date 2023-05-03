@@ -16,6 +16,25 @@ public class Shield : Target
         {
             PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
             player.AddShield(this.shield, this.shieldTime);
+
+
+            // TODO: Test!
+
+            StartCoroutine("PlaySound");
         }
+    }
+
+    private IEnumerator PlaySound()
+    {
+        AudioSource audio = GetComponent<AudioSource>();
+
+        audio.Play();
+
+        while (audio.isPlaying)
+        {
+            yield return new WaitForEndOfFrame();
+        }
+
+        Destroy(gameObject);
     }
 }
