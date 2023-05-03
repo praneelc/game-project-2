@@ -18,7 +18,11 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     List<TextMeshProUGUI> scores;
     [SerializeField]
-    TextMeshProUGUI shield;
+    List<TextMeshProUGUI> shields;
+    [SerializeField]
+    List<TextMeshProUGUI> shieldTimers;
+    [SerializeField]
+    TextMeshProUGUI noShieldText;
 
     [SerializeField]
     TextMeshProUGUI healthBar;
@@ -68,7 +72,33 @@ public class PlayerUIManager : MonoBehaviour
 
     public void UpdateShield()
     {
-        shield.SetText(string.Format("{0:000}", player.shield));
+        foreach (var shield in shields)
+        {
+            if (player.shield <= 0 || player.shieldRemainingTime <= 0)
+            {
+                shield.SetText("");
+            } else
+            {
+                shield.SetText(string.Format("{0:0}", player.shield));
+            }
+        }
+
+        foreach (var shieldTimer in shieldTimers)
+        {
+            if (player.shield <= 0 || player.shieldRemainingTime <= 0)
+            {
+                shieldTimer.SetText("");
+            }
+            else
+            {
+                shieldTimer.SetText(formatTime(player.shieldRemainingTime));
+            }
+        }
+
+        if (player.shield <= 0 || player.shieldRemainingTime <= 0)
+        {
+            noShieldText.SetText("Hit the floating shields to gain a shield!");
+        }
     }
 
     public string formatTime(float seconds)

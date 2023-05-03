@@ -9,7 +9,7 @@ public class PlayerManager : MonoBehaviour
     public readonly float MAX_HEALTH = 1000.0f;
     public float health { get; private set; }
     public float shield { get; private set; }
-    private float shieldRemainingTime;
+    public float shieldRemainingTime { get; private set; }
 
     public readonly float MAX_FULLNESS = 1000.0f;
     public float fullness { get; private set; }
