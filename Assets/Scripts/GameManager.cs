@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
     {
         // Random float; if <= explosiveChance, spawn explosive treat, else sweettreat
         bool spawnExplosive = Random.Range(0f, 1f) < explosiveChance;
-        Vector3 targetPos = head.transform.position - Vector3.up * -1f + (spawnExplosive ? Vector3.up * -.3f : Random.insideUnitSphere * .5f);
+        Vector3 targetPos = head.transform.position - Vector3.up * -1f + (spawnExplosive ? Vector3.up * -.1f : Random.insideUnitSphere * .5f);
 
         // Select a random direction from appropriate range around player
         float randAngle = Random.Range(-angleSpawnRange, angleSpawnRange);
@@ -159,8 +159,6 @@ public class GameManager : MonoBehaviour
     
     public void SpawnSweetTreat(Vector3 pos, Vector3 velocity)
     {
-        // TODO: determine spawning algorithm
-        //TODO make this actually random
         int index = Random.Range(0, sweetTreatPrefabs.Count);
         Debug.Log(index);
         SweetTreat newTreat = Instantiate(sweetTreatPrefabs[index], pos, Quaternion.identity).GetComponent<SweetTreat>();
@@ -171,7 +169,6 @@ public class GameManager : MonoBehaviour
 
     public void SpawnExplosive(Vector3 pos, Vector3 velocity)
     {
-        // TODO
         int index = Random.Range(0, explosiveTreatPrefabs.Count);
         ExplosiveTreat newTreat = Instantiate(explosiveTreatPrefabs[index], pos, Quaternion.identity).GetComponent<ExplosiveTreat>();
         newTreat.Initialize(velocity);

@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 2, g: 2, b: 2, a: 1}
+  m_AmbientSkyColor: {r: 1, g: 1, b: 1, a: 1}
   m_AmbientEquatorColor: {r: 0.20754719, g: 0.20754719, b: 0.20754719, a: 1}
   m_AmbientGroundColor: {r: 0.3584906, g: 0.3584906, b: 0.3584906, a: 1}
   m_AmbientIntensity: 0.92
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 2100000, guid: 617d9be015db68348a623b01ea51a8c5, type: 2}
   m_HaloStrength: 0.5
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.063524, g: 0.20540571, b: 0.2760626, a: 1}
+  m_IndirectSpecularColor: {r: 0.19240315, g: 0.595968, b: 0.77906406, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -495,6 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb8698a192a3c7a44a0b65b307f8a71e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MAX_TIME: 180
   treatInterval: 1
   explosiveChance: 0.38
   powerupInterval: 6
@@ -576,8 +577,7 @@ MonoBehaviour:
   - {fileID: 8544539777148799536, guid: ac1b99879c3533d4b84961961bf18a5c, type: 3}
   explosiveTreatPrefabs:
   - {fileID: 8059471944650984088, guid: 1046cab8a6a6b2747b402f0f35730ea3, type: 3}
-  targetPrefab: {fileID: 6890672956629521471, guid: a0176bc7f4c0540d1b7de91e37064b5e,
-    type: 3}
+  targetPrefabs: []
   powerupPrefabs:
   - {fileID: 8718962301444974238, guid: 0ed9410d1ea344113a6db41714243833, type: 3}
   head: {fileID: 168084910}
@@ -1233,6 +1233,7 @@ GameObject:
   m_Component:
   - component: {fileID: 705507995}
   - component: {fileID: 705507994}
+  - component: {fileID: 705507996}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -1317,6 +1318,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+--- !u!114 &705507996
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 705507993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 1
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!1 &784015143
 GameObject:
   m_ObjectHideFlags: 0
