@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class SweetTreat : Treat
 {
-    [SerializeField]
-    private float healthRestored;
-    [SerializeField]
-    private float fullnessRestored;
+    public float healthRestored;
+    public float fullnessRestored;
 
     public override void Initialize(Vector3 vel)
     {

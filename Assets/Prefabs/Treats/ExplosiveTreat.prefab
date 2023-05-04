@@ -112,11 +112,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f204e24543c51646a2735844afa68bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Points: -1
+  Points: -10
   owner: {fileID: 0}
   wasThrown: 0
-  Damage: 10
-  maxExplosiveForce: 20
+  Damage: 50
+  maxExplosiveForce: 5
   blastRadius: 0.5
   explosionVolume: {fileID: 3455842534788251652, guid: ff8e65bc228750647a5adbce0ac35035,
     type: 3}

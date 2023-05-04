@@ -16,7 +16,7 @@ public class ExplosiveTreat : Treat
     public PlayerHandController secondaryOwner;
 
     private float timeInHand = -1;
-    private readonly float TIME_TO_EXPLODE = 0.3f;
+    private readonly float TIME_TO_EXPLODE = 0.7f;
 
     public bool diffuseFlag = false;
 

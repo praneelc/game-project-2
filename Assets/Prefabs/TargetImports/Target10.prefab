@@ -107,6 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Points: 10
+  hitEffect: {fileID: 5302322313345535393, guid: 8c395892e486a334e9a226b301c53c0d,
+    type: 3}
   yBobScale: 0.2
   yBobSharpness: 1
 --- !u!82 &-6285070102798140436

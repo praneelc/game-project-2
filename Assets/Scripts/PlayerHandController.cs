@@ -17,8 +17,8 @@ public class PlayerHandController : MonoBehaviour
     [SerializeField]
     public Image uicanvas;
 
-    private List<Vector3> heldObjectLastPos;
-    private List<float> timeDeltas;
+    private List<Vector3> heldObjectLastPos = new();
+    private List<float> timeDeltas = new();
     private int storedVelCount = 5;
 
     private bool throwFlag = false;
@@ -29,7 +29,16 @@ public class PlayerHandController : MonoBehaviour
         Debug.Log("Hand Closing!");
         handOpen = false;
 
+
+        
         heldObject = NearestCatchable();
+
+        if (heldObject != null)
+        {
+            heldObjectLastPos = new();
+            timeDeltas = new();
+        }
+
         Debug.Log("Caught Something?: " + heldObject != null);
     }
 
@@ -61,10 +70,8 @@ public class PlayerHandController : MonoBehaviour
         if (other.gameObject.CompareTag("SweetTreat"))
         {
             Treat treat = other.gameObject.GetComponent<Treat>();
-            if (treat.owner == null)
-            {
-                catchableObjects.Add(other.gameObject);
-            }
+            catchableObjects.Add(other.gameObject);
+            
         } else if (other.gameObject.CompareTag("ExplosiveTreat"))
         {
             ExplosiveTreat explosiveTreat = other.gameObject.GetComponent<ExplosiveTreat>();
@@ -88,9 +95,6 @@ public class PlayerHandController : MonoBehaviour
         Treat caughtTreat = caught.GetComponent<Treat>();
         caughtTreat.owner = this;
         caughtTreat.FreezeTreat();
-
-        heldObjectLastPos = new();
-        timeDeltas = new();
     }
 
     public void removeTreat(Treat treat)
@@ -170,9 +174,11 @@ public class PlayerHandController : MonoBehaviour
                 Debug.LogError("Trying to throw non-sweet treat object");
                 return;
             }
-            heldObject.GetComponent<SweetTreat>().UnfreezeTreat();
-            heldObject.GetComponent<Rigidbody>().AddForce(HeldObjectAverageVelocity() / Time.deltaTime * throwForce, ForceMode.Impulse);
+
             heldObject.transform.parent = null;
+
+            heldObject.GetComponent<SweetTreat>().UnfreezeTreat();
+            heldObject.GetComponent<Rigidbody>().AddForce(HeldObjectAverageVelocity() * throwForce, ForceMode.Impulse);
 
             heldObject = null;
             throwFlag = false;
@@ -183,12 +189,14 @@ public class PlayerHandController : MonoBehaviour
     private Vector3 HeldObjectAverageVelocity()
     {
         Vector3 dist = heldObjectLastPos[heldObjectLastPos.Count - 1] - heldObjectLastPos[0];
-        float time = 0f;
+        float time = 0;
 
-        foreach (float f in timeDeltas)
+        for (int i = 1; i < timeDeltas.Count; i++)
         {
-            time += f;
+            time += timeDeltas[i];
         }
+
+        Debug.Log(dist / time);
 
         return dist / time;
     }

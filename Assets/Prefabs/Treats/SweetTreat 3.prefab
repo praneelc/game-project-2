@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 1971517988821415503}
   - component: {fileID: -3689599122499525721}
   - component: {fileID: 7108310638435281298}
-  - component: {fileID: 6842706631516472479}
   - component: {fileID: 3755974594379951533}
+  - component: {fileID: -202841414235921813}
   m_Layer: 0
   m_Name: SweetTreat 3
   m_TagString: SweetTreat
@@ -118,24 +118,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b09c770fd363a488d3e13a4e8f16f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Points: 10
+  Points: 2
   owner: {fileID: 0}
   wasThrown: 0
   healthRestored: 10
-  fullnessRestored: 10
---- !u!65 &6842706631516472479
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8544539777148799536}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.1575183, y: 0.115, z: 0.1587185}
-  m_Center: {x: -0.00051461905, y: 0.011854028, z: 0.001979299}
+  fullnessRestored: 100
 --- !u!82 &3755974594379951533
 AudioSource:
   m_ObjectHideFlags: 0
@@ -232,3 +219,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!64 &-202841414235921813
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8544539777148799536}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -965032035870765837, guid: 0fd79ef4a5b1843bdba749042aeb92b9, type: 3}

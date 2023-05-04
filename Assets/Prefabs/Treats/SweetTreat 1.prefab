@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 5891493386488956003}
   - component: {fileID: 8543643239195068274}
   - component: {fileID: 232400792642003641}
-  - component: {fileID: 5391218116624969820}
   - component: {fileID: 3036464092714157790}
   - component: {fileID: 4411642824206433104}
+  - component: {fileID: 2874996691840514016}
   m_Layer: 0
   m_Name: SweetTreat 1
   m_TagString: SweetTreat
@@ -104,19 +104,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 2
---- !u!135 &5391218116624969820
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1970728086122773261}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.07788552
-  m_Center: {x: -0.00069857016, y: 0.00038171373, z: 0.002156742}
 --- !u!114 &3036464092714157790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -129,11 +116,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32b09c770fd363a488d3e13a4e8f16f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Points: 10
+  Points: 2
   owner: {fileID: 0}
   wasThrown: 0
   healthRestored: 10
-  fullnessRestored: 10
+  fullnessRestored: 100
 --- !u!82 &4411642824206433104
 AudioSource:
   m_ObjectHideFlags: 0
@@ -230,3 +217,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!64 &2874996691840514016
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970728086122773261}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -965032035870765837, guid: 3f18c9eca8e5849ee80377caa90171e1, type: 3}

@@ -11,6 +11,9 @@ public class Target : MonoBehaviour
     private Rigidbody rb;
 
     [SerializeField]
+    private GameObject hitEffect;
+
+    [SerializeField]
     private float yBobScale = 1;
     [SerializeField]
     private float yBobSharpness = 1f;
@@ -22,13 +25,8 @@ public class Target : MonoBehaviour
 
     public void Initialize(float maxAge)
     {
-        Initialize(maxAge, 5);
-    }
-    public void Initialize(float maxAge, int numPoints)
-    {
         this.rb = GetComponent<Rigidbody>();
         this.maxAge = maxAge;
-        this.Points = numPoints;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -62,6 +60,9 @@ public class Target : MonoBehaviour
 
                 // TODO: Test!
                 StartCoroutine("PlaySound");
+                Instantiate(hitEffect);
+
+                Destroy(sweetTreat.gameObject);
             }
         }
     }

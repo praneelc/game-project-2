@@ -98,6 +98,9 @@ public class PlayerUIManager : MonoBehaviour
         if (player.shield <= 0 || player.shieldRemainingTime <= 0)
         {
             noShieldText.SetText("Hit the floating shields to gain a shield!");
+        } else
+        {
+            noShieldText.SetText("");
         }
     }
 

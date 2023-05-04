@@ -72,20 +72,27 @@ public class GameManager : MonoBehaviour
         GameTime += Time.deltaTime;
         RenderSettings.skybox.SetFloat("_Rotation", Time.time * 0.5f);
 
-        if (GameTime >= MAX_TIME)
+        if (GameTime >= MAX_TIME || player.health <= 0)
         {
-            inputActions.Disable();
-            SceneManager.LoadScene("StartEndScene");
+            EndGame();
         }
     }
 
-    #region Game Sequence
-    public void StartGame()
+    private void EndGame()
     {
+        inputActions.Disable();
+        PlayerPrefs.SetInt("Score", player.Score);
+        if (player.Score > PlayerPrefs.GetInt("HighScore"))
+        {
+            PlayerPrefs.SetInt("HighScore", player.Score);
+        }
 
+        SceneManager.LoadScene("StartEndScene");
     }
 
-    public void EndGame()
+
+    #region Game Sequence
+    public void StartGame()
     {
 
     }
@@ -156,11 +163,35 @@ public class GameManager : MonoBehaviour
         }
 
     }
-    
+
+    [Header("TargetSpawnRates")]
+    [SerializeField]
+    private float t10;
+    [SerializeField]
+    private float t25;
+    [SerializeField]
+    private float t50;
+    [SerializeField]
+    private float t100;
+
     public void SpawnSweetTreat(Vector3 pos, Vector3 velocity)
     {
-        int index = Random.Range(0, sweetTreatPrefabs.Count);
-        Debug.Log(index);
+        float f = Random.Range(0f, 1f);
+        int index = 0;
+
+        if (f < t10)
+        {
+            index = 0;
+        } else if (f < t10 + t25)
+        {
+            index = 1;
+        } else if (f < t10 + t25 + t50)
+        {
+            index = 2;
+        } else
+        {
+            index = 3;
+        }
         SweetTreat newTreat = Instantiate(sweetTreatPrefabs[index], pos, Quaternion.identity).GetComponent<SweetTreat>();
         newTreat.Initialize(velocity);
 

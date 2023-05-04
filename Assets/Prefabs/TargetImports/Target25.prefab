@@ -107,6 +107,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Points: 25
+  hitEffect: {fileID: 5302322313345535393, guid: 8c395892e486a334e9a226b301c53c0d,
+    type: 3}
   yBobScale: 0.2
   yBobSharpness: 1
 --- !u!82 &-6285070102798140436
@@ -300,3 +302,23 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 6261348349667430163}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &6495790415594844738 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: edea9bbe9de019448a3b342e39c0e15b,
+    type: 3}
+  m_PrefabInstance: {fileID: 6261348349667430163}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &4576527323233444578
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6495790415594844738}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2437616462746349787, guid: edea9bbe9de019448a3b342e39c0e15b, type: 3}

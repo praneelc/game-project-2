@@ -14,11 +14,15 @@ public class Shield : Target
     {
         if (collision.gameObject.CompareTag("SweetTreat"))
         {
+            SweetTreat treat = collision.gameObject.GetComponent<SweetTreat>();
+
+            if (treat.owner == null)
+            {
+                return;
+            }
+
             PlayerManager player = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
             player.AddShield(this.shield, this.shieldTime);
-
-
-            // TODO: Test!
 
             StartCoroutine("PlaySound");
         }

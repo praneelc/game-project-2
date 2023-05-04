@@ -13,12 +13,12 @@ public class PlayerManager : MonoBehaviour
 
     public readonly float MAX_FULLNESS = 1000.0f;
     public float fullness { get; private set; }
-    private float starveThreshold = 0.1f;
+    private float starveThreshold = 100f;
 
-    public float healthRestoreRate = 15f;
-    public float healthRestoreCost = 15f;
+    public float healthRestoreRate;
+    public float healthRestoreCost;
 
-    public float FullnessDepletionRate { get; private set; }  = .1f;
+    public float FullnessDepletionRate;
 
     [SerializeField]
     private GameObject playerShield;
@@ -48,6 +48,7 @@ public class PlayerManager : MonoBehaviour
         uIManager.UpdateHealthBar();
 
         TickShield();
+
 
     }
 
@@ -91,10 +92,8 @@ public class PlayerManager : MonoBehaviour
             RestoreHealth(healthRestoreRate * deltaTime);
             RestoreFullness(-healthRestoreCost * deltaTime);
         }
-        else
-        {
-            TickFullness(deltaTime);
-        }
+
+        TickFullness(deltaTime);
     }
 
     public int ScorePoints(int pointsToAdd)
@@ -108,6 +107,9 @@ public class PlayerManager : MonoBehaviour
     public void EatTreat(SweetTreat treat)
     {
         ScorePoints(treat.Points);
+        RestoreFullness(treat.fullnessRestored);
+        RestoreHealth(treat.healthRestored);
+
         Destroy(treat.gameObject);
         Debug.Log("Sweet treat was eaten");
     }
@@ -165,7 +167,7 @@ public class PlayerManager : MonoBehaviour
     private float StarvingDamage()
     {
         // TODO: determine StarvingDamage
-        return 1f;
+        return starveThreshold - fullness;
     }
 
     #endregion
