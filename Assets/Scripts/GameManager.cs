@@ -147,7 +147,7 @@ public class GameManager : MonoBehaviour
         float radAngle;
         float velMag;
         
-        radAngle = Random.Range(30, 60) * Mathf.PI / 180;
+        radAngle = Random.Range(15f, 40f) * Mathf.PI / 180;
         velMag = spawnDist / (Mathf.Cos(radAngle)) * Mathf.Sqrt(Mathf.Abs(UnityEngine.Physics.gravity.y / (2)/(spawnDist * Mathf.Tan(radAngle) - heightOffset)));
 
         Vector3 spawnVelocity = velMag*Mathf.Cos(radAngle)*(-Vector3.Normalize(spawnDir)+Vector3.up*Mathf.Tan(radAngle));
