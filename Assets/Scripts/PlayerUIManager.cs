@@ -22,12 +22,12 @@ public class PlayerUIManager : MonoBehaviour
     [SerializeField]
     List<TextMeshProUGUI> shieldTimers;
     [SerializeField]
-    TextMeshProUGUI noShieldText;
+    List<TextMeshProUGUI> noShieldTexts;
 
     [SerializeField]
-    TextMeshProUGUI healthBar;
+    List<TextMeshProUGUI> healthBars;
     [SerializeField]
-    TextMeshProUGUI fullnessBar;
+    List<TextMeshProUGUI> fullnessBars;
 
     private readonly int BAR_LENGTH = 50;
 
@@ -95,12 +95,16 @@ public class PlayerUIManager : MonoBehaviour
             }
         }
 
-        if (player.shield <= 0 || player.shieldRemainingTime <= 0)
+        foreach (var noShieldText in noShieldTexts)
         {
-            noShieldText.SetText("Hit the floating shields to gain a shield!");
-        } else
-        {
-            noShieldText.SetText("");
+            if (player.shield <= 0 || player.shieldRemainingTime <= 0)
+            {
+                noShieldText.SetText("Hit the floating shields to gain a shield!");
+            }
+            else
+            {
+                noShieldText.SetText("");
+            }
         }
     }
 
@@ -117,7 +121,11 @@ public class PlayerUIManager : MonoBehaviour
         float healthRatio = player.health / player.MAX_HEALTH;
         int numBars = Mathf.RoundToInt(healthRatio * BAR_LENGTH);
         string text = new string('|', numBars);
-        healthBar.SetText(text);
+
+        foreach (var healthBar in healthBars)
+        {
+            healthBar.SetText(text);
+        }
     }
 
     public void UpdateFullnessBar()
@@ -125,6 +133,10 @@ public class PlayerUIManager : MonoBehaviour
         float fullnessRatio = player.fullness / player.MAX_FULLNESS;
         int numBars = Mathf.RoundToInt(fullnessRatio * BAR_LENGTH);
         string text = new string('|', numBars);
-        fullnessBar.SetText(text);
+
+        foreach (var fullnessBar in fullnessBars)
+        {
+            fullnessBar.SetText(text);
+        }
     }
 }

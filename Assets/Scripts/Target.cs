@@ -60,7 +60,7 @@ public class Target : MonoBehaviour
 
                 // TODO: Test!
                 StartCoroutine("PlaySound");
-                Instantiate(hitEffect);
+                Instantiate(hitEffect, this.transform.position, Quaternion.identity);
 
                 Destroy(sweetTreat.gameObject);
             }
