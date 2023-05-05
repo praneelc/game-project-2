@@ -19,7 +19,7 @@ public class PlayerHandController : MonoBehaviour
 
     private List<Vector3> heldObjectLastPos = new();
     private List<float> timeDeltas = new();
-    private int storedVelCount = 5;
+    private int storedVelCount = 3;
 
     private bool throwFlag = false;
     private float throwForce = -0.7f * Physics.gravity.y;

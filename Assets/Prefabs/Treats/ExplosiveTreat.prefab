@@ -116,6 +116,7 @@ MonoBehaviour:
   owner: {fileID: 0}
   wasThrown: 0
   Damage: 50
+  PointsOnDiffuse: 5
   maxExplosiveForce: 5
   blastRadius: 0.5
   explosionVolume: {fileID: 3455842534788251652, guid: ff8e65bc228750647a5adbce0ac35035,

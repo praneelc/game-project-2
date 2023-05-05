@@ -5,6 +5,8 @@ using UnityEngine;
 public class ExplosiveTreat : Treat
 {
     public float Damage;
+    public int PointsOnDiffuse;
+
     [SerializeField]
     private float maxExplosiveForce;
     [SerializeField]
@@ -130,6 +132,7 @@ public class ExplosiveTreat : Treat
 
         // TODO: Determine which method actually works
         StartCoroutine("ExplosiveVanish");
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>().ScorePoints(PointsOnDiffuse);
     }
 
     private IEnumerator ExplosiveVanish()
